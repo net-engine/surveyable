@@ -1,8 +1,9 @@
 module Surveyable
   class Question < ActiveRecord::Base
+    has_many :answers, dependent: :destroy
     belongs_to :survey
 
-    validates :title, :field_type, presence: true
+    validates :content, :field_type, presence: true
 
     attr_accessible :field_type, :required, :title
   end

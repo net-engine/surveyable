@@ -2,7 +2,7 @@
 class CreateSurveyableQuestions < ActiveRecord::Migration
   def change
     create_table :surveyable_questions do |t|
-      t.string :title
+      t.string :content
       t.references :survey
       t.string :field_type
       t.boolean :required, default: true
