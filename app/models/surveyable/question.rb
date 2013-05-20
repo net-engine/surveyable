@@ -4,7 +4,5 @@ module Surveyable
     belongs_to :survey
 
     validates :content, :field_type, presence: true
-
-    attr_accessible :field_type, :required, :title
   end
 end
