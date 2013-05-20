@@ -12,7 +12,7 @@ group :development, :test do
   gem 'debugger'
   gem 'sqlite3'
   gem 'rspec-rails'
-  gem 'factory_girl_rails'
+  gem 'factory_girl'
 end
 
 group :test do
