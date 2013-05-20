@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130520020557) do
+ActiveRecord::Schema.define(:version => 20130520020406) do
 
   create_table "surveyable_answers", :force => true do |t|
     t.integer  "question_id"
