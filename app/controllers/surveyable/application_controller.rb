@@ -1,4 +1,2 @@
-module Surveyable
-  class ApplicationController < ActionController::Base
-  end
+class Surveyable::ApplicationController < ApplicationController
 end
