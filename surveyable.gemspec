@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.version     = Surveyable::VERSION
   s.authors     = ["NetEngine"]
   s.email       = ["info@netengine.com.au"]
-  s.homepage    = "netengine.com.au"
+  s.homepage    = "http://netengine.com.au"
   s.summary     = "Surveying your application made easy"
   s.description = "Easy to create surveys"
 
