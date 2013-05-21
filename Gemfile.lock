@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     surveyable (0.0.1)
+      active_model_serializers (~> 0.8.0)
       rails (~> 3.2.13)
 
 GEM
