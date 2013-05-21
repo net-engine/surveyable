@@ -33,5 +33,23 @@ module Surveyable
         end
       end
     end
+
+    describe "#enable!" do
+      let(:survey) { create(:survey, enabled: false) }
+
+      it "changes survey status to enabled" do
+        survey.enable!
+        survey.should be_enabled
+      end
+    end
+
+    describe "#disable!" do
+      let(:survey) { create(:survey, enabled: true) }
+
+      it "changes survey status to disabled" do
+        survey.disable!
+        survey.should_not be_enabled
+      end
+    end
   end
 end
