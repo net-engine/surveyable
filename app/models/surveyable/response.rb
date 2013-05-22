@@ -9,7 +9,11 @@ module Surveyable
 
     before_validation :generate_token, on: :create
 
-    attr_accessible :survey_id
+    attr_accessible :survey, :responseable, :responseable_id, :responseable_type
+
+    def completed?
+      !!completed_at
+    end
 
     private
 

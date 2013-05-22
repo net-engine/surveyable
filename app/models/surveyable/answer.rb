@@ -2,8 +2,8 @@ module Surveyable
   class Answer < ActiveRecord::Base
     belongs_to :question
 
-    validates :content, presence: true
+    validates :content, :position, presence: true
 
-    attr_accessible :content, :position
+    attr_accessible :content, :position, :question
   end
 end
