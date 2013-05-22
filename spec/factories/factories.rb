@@ -1,8 +1,7 @@
 FactoryGirl.define do
 
-  sequence :survey_title do |n|
-    "Survey #{n}"
-  end
+  sequence(:survey_title) { |n| "Survey #{n}" }
+  sequence(:position) { |n| n }
 
   factory :survey, class: Surveyable::Survey do
     title { generate(:survey_title) }
@@ -36,6 +35,7 @@ FactoryGirl.define do
 
   factory :answer, class: Surveyable::Answer do
     content "Yes"
+    position
   end
 
   factory :response, class: Surveyable::Response do
