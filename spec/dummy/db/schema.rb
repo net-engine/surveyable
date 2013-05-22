@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130520020406) do
+ActiveRecord::Schema.define(:version => 20130522011056) do
 
   create_table "surveyable_answers", :force => true do |t|
     t.integer  "question_id"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(:version => 20130520020406) do
     t.datetime "completed_at"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+    t.string   "access_token"
   end
 
   add_index "surveyable_responses", ["survey_id"], :name => "index_surveyable_responses_on_survey_id"

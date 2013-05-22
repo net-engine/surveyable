@@ -39,6 +39,7 @@ FactoryGirl.define do
   end
 
   factory :response, class: Surveyable::Response do
+    access_token SecureRandom.uuid
     survey
   end
 end
