@@ -1,3 +1,6 @@
 = Surveyable
 
-This project rocks and uses MIT-LICENSE.
+Running tests:
+
+rake app:db:drop:all app:db:create:all app:db:migrate app:db:test:prepare
+rspec spec
