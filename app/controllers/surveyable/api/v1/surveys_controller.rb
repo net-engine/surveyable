@@ -15,7 +15,7 @@ module Surveyable
       @survey = Survey.new(params[:survey])
       @survey.save
 
-      respond_with @survey, serializer: V1::SurveySerializer
+      respond_with @survey, location: surveyable_url, serializer: V1::SurveySerializer
     end
 
     def update
@@ -29,7 +29,7 @@ module Surveyable
     end
 
     def destroy
-      @survey.update_attribute(:enabled, false)
+      @survey.disable!
 
       respond_with @survey, serializer: V1::SurveySerializer
     end
