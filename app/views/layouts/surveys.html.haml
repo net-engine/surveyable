@@ -1,0 +1,11 @@
+!!!5
+%html
+  %head
+    %title= 'Surveyable'
+    = stylesheet_link_tag :application, media: 'all'
+    = csrf_meta_tags
+
+    = javascript_include_tag "surveyable/application"
+
+  %body
+    = yield

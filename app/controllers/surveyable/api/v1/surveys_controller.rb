@@ -15,7 +15,7 @@ module Surveyable
       @survey = Survey.new(params[:survey])
       @survey.save
 
-      respond_with @survey, location: surveyable_url, serializer: V1::SurveySerializer
+      respond_with @survey, location: nil, serializer: V1::SurveySerializer
     end
 
     def update
