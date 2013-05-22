@@ -25,7 +25,7 @@ FactoryGirl.define do
 
     factory :question_with_answers do
       ignore do
-        answers_count 3
+        answers_count 2
       end
 
       after(:create) do |question, evaluator|
