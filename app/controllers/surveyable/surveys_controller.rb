@@ -1,5 +1,8 @@
 module Surveyable
   class SurveysController < ApplicationController
+    before_filter :fetch_survey, only: [:edit, :update, :destroy]
+    before_filter :allow_to_edit, only: [:edit, :update]
+
     def index
       @surveys = Survey.where(enabled: true)
     end
@@ -17,39 +20,35 @@ module Surveyable
       @survey = Survey.new(params[:surveyable_survey])
 
       if @survey.save
-        redirect_to surveyable_surveys_path, notice: 'Survey created successfully.'
+        redirect_to surveyable_surveys_path, notice: 'Survey was successfully created.'
       else
         flash.now[:error] = @survey.errors.full_messages.join(', ')
         render :new
       end
     end
 
-    def edit
-      @survey = Survey.find(params[:id])
-
-      redirect_to surveyable_surveys_path, warning: 'Cannot update this survey' and return if @survey.has_been_answered?
-    end
-
     def update
-      @survey = Survey.find(params[:id])
-      redirect_to surveyable_surveys_path, warning: 'Cannot update this survey' and return if @survey.has_been_answered?
-
       if @survey.update_attributes(params[:surveyable_survey])
-        redirect_to surveyable_survey_path, notice: 'Survey updated successfully.'
+        redirect_to surveyable_survey_path, notice: 'Survey was successfully updated.'
       else
         render :edit
       end
     end
 
-    def show
+    def destroy
+      @survey.disable!
+
+      redirect_to surveyable_surveys_path, notice: 'Survey was successfully deleted.'
+    end
+
+    private
+
+    def fetch_survey
       @survey = Survey.find(params[:id])
     end
 
-    def destroy
-      @survey = Survey.find(params[:id])
-      @survey.disable!
-
-      redirect_to surveyable_surveys_path, notice: 'Survey deleted successfully.'
+    def allow_to_edit
+      redirect_to surveyable_surveys_path, warning: 'Cannot update this survey' and return if @survey.has_been_answered?
     end
   end
 end
