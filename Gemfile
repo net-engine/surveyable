@@ -7,7 +7,6 @@ gemspec
 
 # jquery-rails is used by the dummy application
 gem "jquery-rails"
-gem "active_model_serializers", '~> 0.8.0'
 
 group :development, :test do
   gem 'debugger'

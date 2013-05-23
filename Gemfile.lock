@@ -127,7 +127,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_model_serializers (~> 0.8.0)
   capybara
   debugger
   factory_girl
