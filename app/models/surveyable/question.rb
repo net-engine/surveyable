@@ -14,7 +14,7 @@ module Surveyable
 
     validates :content, :field_type, presence: true
 
-    attr_accessible :content, :field_type, :survey, :answers_attributes
+    attr_accessible :content, :field_type, :survey, :answers_attributes, :required
 
     accepts_nested_attributes_for :answers, allow_destroy: true, reject_if: lambda { |a| a[:content].blank? }
   end
