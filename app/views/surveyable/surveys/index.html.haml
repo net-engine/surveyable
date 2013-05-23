@@ -1,5 +1,9 @@
-.actions.btn-group
-  = link_to "New Survey".html_safe, surveyable_new_survey_path, class: 'btn btn-add'
+- content_for :breadcrumbs do
+  %li.current= link_to 'Manage Surveys', surveyable_surveys_path
+  %li.leader
+    = link_to new_surveyable_survey_path do
+      %i.icon-plus
+      New Survey
 
 - if @surveys.any?
   %table.table.table-striped.tablesorter
@@ -15,8 +19,7 @@
           %td= survey.questions.count
           %td
             = link_to 'Edit', edit_surveyable_survey_path(survey), class: 'btn' unless survey.has_been_answered?
-            = link_to 'Delete', survey_surveyable_path(survey), method: :delete, confirm: 'Are you sure you want to delete this survey?', class: 'btn btn-danger'
+            = link_to 'Delete', surveyable_survey_path(survey), method: :delete, confirm: 'Are you sure you want to delete this survey?', class: 'btn btn-danger'
 
 - else
   %p.empty No surveys have been created yet.
-
