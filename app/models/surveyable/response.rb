@@ -15,6 +15,10 @@ module Surveyable
       !!completed_at
     end
 
+    def complete!
+      update_attribute(:completed_at, Time.now)
+    end
+
     private
 
     def generate_token

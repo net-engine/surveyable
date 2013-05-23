@@ -38,5 +38,14 @@ module Surveyable
         end
       end
     end
+
+    describe "#complete!" do
+      let(:response) { create(:response) }
+
+      it "sets completed_at" do
+        response.complete!
+        response.should be_completed
+      end
+    end
   end
 end
