@@ -9,6 +9,7 @@ gemspec
 gem "jquery-rails"
 
 group :development, :test do
+  gem 'haml-rails'
   gem 'debugger'
   gem 'sqlite3'
   gem 'rspec-rails'
@@ -18,5 +19,8 @@ end
 group :test do
   gem 'shoulda-matchers'
   gem 'capybara'
+  gem 'poltergeist'
+  gem 'database_cleaner'
+  gem 'launchy'
 end
 

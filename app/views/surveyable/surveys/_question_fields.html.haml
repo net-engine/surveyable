@@ -1,9 +1,9 @@
-.field-bloc
+.question
   %li
     %h5 Question
   %li.well
     .fields
-      .name
+      .content
         = form.text_field :content
         = link_to_remove_fields 'x', form
       .options
@@ -12,6 +12,7 @@
         = form.label :required
         = form.check_box :required
       .clearfix
+
       %section#answers
         %table.table.table-bordered.table-condensed
           = form.fields_for :answers do |form_answer|

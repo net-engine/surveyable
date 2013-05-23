@@ -13,7 +13,7 @@ module Surveyable
         render(association.to_s.singularize + "_fields", form: builder)
       end
 
-      link_to_function(name, "add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")", class: 'btn btn-add')
+      link_to_function(name, "add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")", class: 'btn-add')
     end
   end
 end
