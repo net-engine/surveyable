@@ -13,7 +13,7 @@
 
 ActiveRecord::Schema.define(:version => 20130522011056) do
 
-  create_table "surveyable_answers", :force => true do |t|
+  create_table "answers", :force => true do |t|
     t.integer  "question_id"
     t.integer  "position"
     t.text     "content"
@@ -21,9 +21,9 @@ ActiveRecord::Schema.define(:version => 20130522011056) do
     t.datetime "updated_at",  :null => false
   end
 
-  add_index "surveyable_answers", ["question_id"], :name => "index_surveyable_answers_on_question_id"
+  add_index "answers", ["question_id"], :name => "index_answers_on_question_id"
 
-  create_table "surveyable_questions", :force => true do |t|
+  create_table "questions", :force => true do |t|
     t.string   "content"
     t.integer  "survey_id"
     t.string   "field_type"
@@ -32,9 +32,9 @@ ActiveRecord::Schema.define(:version => 20130522011056) do
     t.datetime "updated_at",                   :null => false
   end
 
-  add_index "surveyable_questions", ["survey_id"], :name => "index_surveyable_questions_on_survey_id"
+  add_index "questions", ["survey_id"], :name => "index_questions_on_survey_id"
 
-  create_table "surveyable_response_answers", :force => true do |t|
+  create_table "response_answers", :force => true do |t|
     t.integer  "response_id"
     t.integer  "question_id"
     t.integer  "answer_id"
@@ -43,11 +43,11 @@ ActiveRecord::Schema.define(:version => 20130522011056) do
     t.datetime "updated_at",   :null => false
   end
 
-  add_index "surveyable_response_answers", ["answer_id"], :name => "index_surveyable_response_answers_on_answer_id"
-  add_index "surveyable_response_answers", ["question_id"], :name => "index_surveyable_response_answers_on_question_id"
-  add_index "surveyable_response_answers", ["response_id"], :name => "index_surveyable_response_answers_on_response_id"
+  add_index "response_answers", ["answer_id"], :name => "index_response_answers_on_answer_id"
+  add_index "response_answers", ["question_id"], :name => "index_response_answers_on_question_id"
+  add_index "response_answers", ["response_id"], :name => "index_response_answers_on_response_id"
 
-  create_table "surveyable_responses", :force => true do |t|
+  create_table "responses", :force => true do |t|
     t.integer  "survey_id"
     t.integer  "responseable_id"
     t.string   "responseable_type"
@@ -57,9 +57,9 @@ ActiveRecord::Schema.define(:version => 20130522011056) do
     t.string   "access_token"
   end
 
-  add_index "surveyable_responses", ["survey_id"], :name => "index_surveyable_responses_on_survey_id"
+  add_index "responses", ["survey_id"], :name => "index_responses_on_survey_id"
 
-  create_table "surveyable_surveys", :force => true do |t|
+  create_table "surveys", :force => true do |t|
     t.string   "title"
     t.boolean  "enabled",    :default => true
     t.datetime "created_at",                   :null => false

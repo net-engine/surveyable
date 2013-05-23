@@ -1,6 +1,6 @@
 class CreateSurveyableQuestions < ActiveRecord::Migration
   def change
-    create_table :surveyable_questions do |t|
+    create_table :questions do |t|
       t.string :content
       t.references :survey
       t.string :field_type
@@ -8,6 +8,6 @@ class CreateSurveyableQuestions < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :surveyable_questions, :survey_id
+    add_index :questions, :survey_id
   end
 end

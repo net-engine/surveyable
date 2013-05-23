@@ -1,6 +1,6 @@
 class CreateSurveyableSurveys < ActiveRecord::Migration
   def change
-    create_table :surveyable_surveys do |t|
+    create_table :surveys do |t|
       t.string :title
       t.boolean :enabled, default: true
 

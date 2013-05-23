@@ -1,6 +1,6 @@
 class CreateSurveyableResponses < ActiveRecord::Migration
   def change
-    create_table :surveyable_responses do |t|
+    create_table :responses do |t|
       t.references :survey
       t.integer :responseable_id
       t.string :responseable_type
@@ -8,6 +8,6 @@ class CreateSurveyableResponses < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :surveyable_responses, :survey_id
+    add_index :responses, :survey_id
   end
 end
