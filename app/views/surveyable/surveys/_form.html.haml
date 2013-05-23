@@ -1,0 +1,19 @@
+#survey_form
+  = form_for @survey do |form|
+    - if @survey.errors.full_messages.any?
+      %section#error.alert.alert-error= @survey.errors.full_messages.join(', ')
+
+    %section#survey
+      = form.label :title, 'Survey name'
+      = form.text_field :title
+    %section#questions
+      %ol
+        = form.fields_for :questions do |form_question|
+          = render 'question_fields', form: form_question
+      = link_to_add_fields 'Add question', form, :questions
+      .clearfix
+    %section#actions
+      .form-actions
+        = form.submit 'Save', class: 'btn'
+        = link_to 'Cancel', surveyable_surveys_path
+        .clearfix
