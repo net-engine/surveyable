@@ -4,5 +4,5 @@ Rails.application.routes.draw do
   end
 
   get '/surveys/:access_token' => 'surveyable/responses#show'
-  post '/surveys/:access_token' => 'surveyable/responses#create', as: :submit_survey
+  post '/surveys/:access_token' => 'surveyable/responses#complete', as: :submit_survey
 end

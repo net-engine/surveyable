@@ -7,7 +7,7 @@ module Surveyable
       @survey   = @response.completed? ? nil : @response.survey
     end
 
-    def create
+    def complete
       @response = Response.where(access_token: params[:access_token]).first
       ResponseHandler.handle(@response, params[:questions])
       @response.complete!
