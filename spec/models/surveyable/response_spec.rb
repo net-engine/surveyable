@@ -7,10 +7,6 @@ module Surveyable
     it { should have_many(:response_answers) }
     it { should validate_presence_of(:survey) }
 
-    %w( survey responseable responseable_id responseable_type ).each do |attr|
-      it { should allow_mass_assignment_of(attr.to_sym) }
-    end
-
     describe "#generate_token" do
       let(:survey) { create(:survey) }
 

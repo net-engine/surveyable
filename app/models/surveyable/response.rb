@@ -9,8 +9,6 @@ module Surveyable
 
     before_validation :generate_token, on: :create
 
-    attr_accessible :survey, :responseable, :responseable_id, :responseable_type
-
     scope :completed, where("completed_at IS NOT NULL")
 
     def completed?

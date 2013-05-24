@@ -7,10 +7,6 @@ module Surveyable
     it { should have_many(:responses).dependent(:destroy) }
     it { should accept_nested_attributes_for(:questions).allow_destroy(true) }
 
-    %w( title enabled questions_attributes ).each do |attr|
-      it { should allow_mass_assignment_of(attr.to_sym) }
-    end
-
     describe "#enabled" do
       let(:survey1) { create(:survey, enabled: true) }
       let(:survey2) { create(:survey, enabled: false) }
