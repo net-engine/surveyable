@@ -9,5 +9,5 @@ var add_fields = function(link, association, content) {
 
 var remove_fields = function(link) {
   $(link).prev("input[type=hidden]").val("1");
-  $(link).closest(".field-bloc").hide();
+  $(link).closest(".togglable").hide();
 }

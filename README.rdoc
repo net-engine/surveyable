@@ -8,7 +8,7 @@ rspec spec
 Installing into your application:
 
 Add migrations:
-rake surveyable:install:migrations
+rake surveyable_engine:install:migrations
 
 Include into your application.js:
 //= require surveyable/application
