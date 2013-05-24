@@ -1,17 +1,11 @@
 # Surveyable
 
-
 Add survey to your application made easy.
-
----
 
 ### Running tests
 
-
     rake app:db:drop:all app:db:create:all app:db:migrate app:db:test:prepare
     rspec spec
-
----
 
 ### Installing into your application
 
