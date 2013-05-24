@@ -6,5 +6,7 @@ module Surveyable
 
     validates :response, presence: true
     validates :question, presence: true
+
+    attr_accessible :question_id, :answer_id, :free_content
   end
 end
