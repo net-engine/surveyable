@@ -2,7 +2,7 @@ require 'active_support/core_ext/kernel/singleton_class'
 require "surveyable/engine"
 
 module Surveyable
-  mattr_accessor :user_class, :application_controller_class
+  mattr_accessor :responseable_class, :application_controller_class
 
   class << self
     def application_controller_class
@@ -15,13 +15,13 @@ module Surveyable
       end
     end
 
-    def user_class
-      if @@user_class.is_a?(Class)
-        raise "You cannot set Surveyable.user_class to be a class. Please use a string instead.\n\n "
-      elsif @@user_class.is_a?(String)
-        @@user_class.constantize
+    def responseable_class
+      if @@responseable_class.is_a?(Class)
+        raise "You cannot set Surveyable.responseable_class to be a class. Please use a string instead.\n\n "
+      elsif @@responseable_class.is_a?(String)
+        @@responseable_class.constantize
       else
-        User
+        !!defined?(User) ? User : nil
       end
     end
   end
