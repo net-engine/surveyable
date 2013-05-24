@@ -1,6 +1,11 @@
 module Surveyable
   class SurveysController < ApplicationController
-    before_filter :fetch_survey, only: [:edit, :update, :destroy]
+    begin
+      load_and_authorize_resource
+    rescue
+      before_filter :fetch_survey, only: [:edit, :update, :destroy]
+    end
+
     before_filter :allow_to_edit, only: [:edit, :update]
 
     def index
@@ -29,7 +34,7 @@ module Surveyable
 
     def update
       if @survey.update_attributes(params[:surveyable_survey])
-        redirect_to surveyable_survey_path, notice: 'Survey was successfully updated.'
+        redirect_to surveyable_surveys_path, notice: 'Survey was successfully updated.'
       else
         render :edit
       end

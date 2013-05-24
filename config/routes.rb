@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   namespace :surveyable do
-    resources :surveys
+    resources :surveys, except: :show
   end
 
   get '/surveys/:access_token' => 'surveyable/responses#show'
