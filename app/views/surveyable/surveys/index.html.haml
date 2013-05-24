@@ -11,12 +11,16 @@
       %tr
         %th Name
         %th # of questions
+        %th # of invitations
+        %th # of responses
         %th
     %tbody
       - @surveys.each do |survey|
         %tr
           %td= survey.title
           %td= survey.questions.count
+          %td= survey.responses.count
+          %td= survey.responses.completed.count
           %td
             = link_to 'Edit', edit_surveyable_survey_path(survey), class: 'btn' unless survey.has_been_answered?
             = link_to 'Delete', surveyable_survey_path(survey), method: :delete, confirm: 'Are you sure you want to delete this survey?', class: 'btn btn-danger'
