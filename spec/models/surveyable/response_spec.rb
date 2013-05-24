@@ -47,5 +47,14 @@ module Surveyable
         response.should be_completed
       end
     end
+
+    describe ".completed" do
+      let(:response1) { create(:response, completed_at: nil) }
+      let(:response2) { create(:response, completed_at: Time.now) }
+
+      it "returns only completed surveys" do
+        described_class.completed.should == [response2]
+      end
+    end
   end
 end
