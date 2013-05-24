@@ -2,7 +2,7 @@ module Surveyable
   class SurveysController < ApplicationController
     begin
       load_and_authorize_resource
-    rescue
+    rescue NameError
       before_filter :fetch_survey, only: [:edit, :update, :destroy]
     end
 
