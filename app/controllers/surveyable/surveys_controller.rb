@@ -36,6 +36,7 @@ module Surveyable
       if @survey.update_attributes(params[:surveyable_survey])
         redirect_to surveyable_surveys_path, notice: 'Survey was successfully updated.'
       else
+        flash.now[:error] = @survey.errors.full_messages.join(', ')
         render :edit
       end
     end
@@ -54,6 +55,13 @@ module Surveyable
 
     def allow_to_edit
       redirect_to surveyable_surveys_path, warning: 'Cannot update this survey' and return if @survey.has_been_answered?
+    end
+
+    def survey_attributes
+      answers = [:position, :content]
+      questions = [:content, :field_type, :required, { answers: answers }]
+
+      params.require(:surveyable_survey).permit(:title, :enabled, { questions: questions })
     end
   end
 end
