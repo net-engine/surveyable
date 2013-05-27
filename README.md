@@ -17,5 +17,12 @@ Add survey to your application made easy.
 
 #### Create config/initializers/surveyable.rb if you want to change defaults
     Surveyable.application_controller_class = 'ApplicationController' (default to ActionController::Base)
-    Surveyable.responseable_class = 'Admin' (default to User) # which entity from your system should respond to surveys
+
+#### Make your class responseable by adding Surveyable::Responseable
+    class User < ActiveRecord::Base
+      include Surveyable::Responseable
+    end
+
+This adds has_many :responses to the user so that you can manage which survey is sent to the end user.
+
 
