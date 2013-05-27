@@ -7,4 +7,3 @@ module Surveyable
     end
   end
 end
-

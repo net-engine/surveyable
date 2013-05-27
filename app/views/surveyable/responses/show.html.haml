@@ -1,16 +1,15 @@
-- if @survey
-  %h2= @survey.title
-  = form_tag submit_survey_path do
-    %section#questions
-      %ol
-        - @survey.questions.each do |question|
-          %li.question
-            %label= question.content
-            .answers
-              = render_answers_for(question)
+%header
+  %h2 #{@response.survey.title} - Response of #{@response.responseable.full_name}
 
-      .actions
-        = submit_tag 'Send', class: 'btn'
+%article.body
+  - @response.response_answers.group_by { |ra| ra.question }.each do |question, responses|
+    %p
+      .question
+        = question.content
 
-- else
-  %p.empty This survey expired. Please contact your adviser to take this survey.
+        - responses.each do |response|
+          .answer
+            = response.answer.try(:content) || response.free_content
+
+= link_to 'Back', :back
+
