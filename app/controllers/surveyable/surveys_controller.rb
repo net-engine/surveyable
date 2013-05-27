@@ -6,8 +6,6 @@ module Surveyable
       before_filter :fetch_survey, only: [:edit, :update, :destroy]
     end
 
-    before_filter :allow_to_edit, only: [:edit, :update]
-
     def index
       @surveys = Survey.where(enabled: true)
     end
@@ -32,7 +30,13 @@ module Surveyable
       end
     end
 
+    def edit
+      flash[:notice] = 'This survey has already been answered. It cannot be edited.' if @survey.has_been_answered?
+    end
+
     def update
+      redirect_to surveyable_surveys_path, warning: 'Cannot update this survey' and return if @survey.has_been_answered?
+
       if @survey.update_attributes(survey_attributes)
         redirect_to surveyable_surveys_path, notice: 'Survey was successfully updated.'
       else
@@ -51,10 +55,6 @@ module Surveyable
 
     def fetch_survey
       @survey = Survey.find(params[:id])
-    end
-
-    def allow_to_edit
-      redirect_to surveyable_surveys_path, warning: 'Cannot update this survey' and return if @survey.has_been_answered?
     end
 
     def survey_attributes

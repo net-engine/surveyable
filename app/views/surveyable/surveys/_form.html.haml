@@ -1,5 +1,5 @@
 #survey_form
-  = form_for @survey do |form|
+  = form_for @survey, id: 'survey_form' do |form|
     - if @survey.errors.full_messages.any?
       %section#error.alert.alert-error= @survey.errors.full_messages.join(', ')
 

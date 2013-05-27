@@ -2,3 +2,7 @@
   %li.current= link_to 'Manage Surveys', surveyable_surveys_path
 
 = render 'form'
+
+- if @survey.has_been_answered?
+  :javascript
+    $("#survey_form input").attr('disabled', true)
