@@ -36,16 +36,16 @@ module Surveyable::ResponseableHelper
   private
 
   def render_text_field(question)
-    text_field_tag "questions[#{question.id}]"
+    text_field_tag "questions[#{question.id}]", nil, required: question.required
   end
 
   def render_text_area_field(question)
-    text_area_tag "questions[#{question.id}]"
+    text_area_tag "questions[#{question.id}]", nil, required: question.required
   end
 
   def render_select_field(question)
     content_tag :div do
-      select_tag "questions[#{question.id}]", options_for_select(question.answers.collect { |a| [a.content, a.id] })
+      select_tag "questions[#{question.id}]", options_for_select(question.answers.collect { |a| [a.content, a.id] }), required: question.required
     end
   end
 
@@ -53,7 +53,7 @@ module Surveyable::ResponseableHelper
     radio_buttons = ''
 
     question.answers.each do |answer|
-      radio_button = radio_button_tag("questions[#{question.id}]", answer.id)
+      radio_button = radio_button_tag("questions[#{question.id}]", answer.id, required: question.required)
       label = label_tag("questions_#{question.id}_#{answer.id}", answer.content)
 
       radio_buttons += radio_button + label
@@ -76,6 +76,6 @@ module Surveyable::ResponseableHelper
   end
 
   def render_date_field(question)
-    text_field_tag "questions[#{question.id}]", '', class: 'survey_date'
+    text_field_tag "questions[#{question.id}]", '', { class: 'survey_date', required: question.required }
   end
 end
