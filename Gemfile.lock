@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     surveyable (0.0.1)
+      haml
       rails (~> 3.2.13)
       strong_parameters (~> 0.2.1)
 
