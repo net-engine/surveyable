@@ -25,4 +25,7 @@ Add survey to your application made easy.
 
 This adds has_many :responses to the user so that you can manage which survey is sent to the end user.
 
+#### Add form to create responses to send to the responseable
+    responseable_form_for(@user)
 
+..whereas @user is the responseable.
