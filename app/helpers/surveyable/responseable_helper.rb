@@ -1,4 +1,21 @@
 module Surveyable::ResponseableHelper
+  def responseable_form_for(responseable)
+    surveys = Surveyable::Survey.enabled
+    response = Surveyable::Response.new
+
+    if surveys.any?
+      form_for(response) do |f|
+        concat f.hidden_field :responseable_id, value: responseable.id
+        concat f.hidden_field :responseable_type, value: responseable.class.to_s
+        concat f.collection_select :survey_id, surveys, :id, :title
+        concat f.submit 'Submit'
+      end
+    else
+      content_tag(:p, 'No surveys created')
+    end
+  end
+
+
   def render_answers_for(question)
     case question.field_type.to_sym
     when :text_field
@@ -59,6 +76,6 @@ module Surveyable::ResponseableHelper
   end
 
   def render_date_field(question)
-    text_field_tag "questions[#{question.id}]", class: 'survey_date'
+    text_field_tag "questions[#{question.id}]", '', class: 'survey_date'
   end
 end

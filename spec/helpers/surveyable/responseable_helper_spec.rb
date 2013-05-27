@@ -1,6 +1,32 @@
 require 'spec_helper'
 
 describe Surveyable::ResponseableHelper do
+  describe "#responseable_form_for" do
+    let(:user) { mock(:user, id: 7594, class: 'User') }
+
+    context "when there is no survey" do
+      it "returns no survey created" do
+        helper.responseable_form_for(user).should == '<p>No surveys created</p>'
+      end
+    end
+
+    context "when there is survey" do
+      let!(:survey) { create(:survey) }
+
+      it "returns form to create survey" do
+        form_output = helper.responseable_form_for(user)
+
+        form_output.should have_selector('input')
+        form_output.should have_selector('select')
+        form_output.should have_selector('option', count: 1)
+        form_output.should have_selector('option', text: survey.title)
+        form_output.should include('7594')
+        form_output.should include('User')
+        form_output.should include('Submit')
+      end
+    end
+  end
+
   describe "#render_answers_for" do
     context "when question is text field" do
       let(:question) { build_stubbed(:question, field_type: :text_field) }
