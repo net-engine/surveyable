@@ -1,4 +1,4 @@
-module Surveyable::ResponsesHelper
+module Surveyable::ResponseableHelper
   def render_answers_for(question)
     case question.field_type.to_sym
     when :text_field
@@ -59,6 +59,6 @@ module Surveyable::ResponsesHelper
   end
 
   def render_date_field(question)
-    date_select "questions[#{question.id}]", '', class: 'survey_date'
+    text_field "questions[#{question.id}]", '', class: 'survey_date'
   end
 end
