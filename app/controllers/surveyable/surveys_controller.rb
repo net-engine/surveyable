@@ -22,7 +22,7 @@ module Surveyable
     end
 
     def create
-      @survey = Survey.new(params[:surveyable_survey])
+      @survey = Survey.new(survey_attributes)
 
       if @survey.save
         redirect_to surveyable_surveys_path, notice: 'Survey was successfully created.'
@@ -33,7 +33,7 @@ module Surveyable
     end
 
     def update
-      if @survey.update_attributes(params[:surveyable_survey])
+      if @survey.update_attributes(survey_attributes)
         redirect_to surveyable_surveys_path, notice: 'Survey was successfully updated.'
       else
         flash.now[:error] = @survey.errors.full_messages.join(', ')
@@ -58,10 +58,12 @@ module Surveyable
     end
 
     def survey_attributes
-      answers = [:position, :content]
-      questions = [:content, :field_type, :required, { answers: answers }]
+      answers_attributes = [:position, :content, :id, :_destroy]
+      questions_attributes = [:content, :field_type, :required, :id, :_destroy,
+                              answers_attributes: answers_attributes]
 
-      params.require(:surveyable_survey).permit(:title, :enabled, { questions: questions })
+      params.require(:surveyable_survey).
+        permit(:title, :enabled, questions_attributes: questions_attributes)
     end
   end
 end

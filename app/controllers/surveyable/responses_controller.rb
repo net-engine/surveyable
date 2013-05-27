@@ -1,16 +1,32 @@
 module Surveyable
   class ResponsesController < ApplicationController
-    layout 'surveys'
+    def create
+      @response = Response.new(response_attributes)
 
-    def show
-      @response = Response.where(access_token: params[:access_token]).first
-      @survey   = @response.completed? ? nil : @response.survey
+      if @response.save
+        flash[:notice] = "Survey was succesfully created"
+      else
+        flash[:error] = @response.errors.full_messages.join(", ")
+      end
+
+      redirect_to :back
     end
 
-    def complete
-      @response = Response.where(access_token: params[:access_token]).first
-      ResponseHandler.handle(@response, params[:questions])
-      @response.complete!
+    def show
+      @response = Response.find(params[:id])
+    end
+
+    def destroy
+      @response = Response.find(params[:id])
+      @response.destroy
+
+      redirect_to :back
+    end
+
+    private
+
+    def response_attributes
+      params.require(:surveyable_response).permit(:survey_id, :responseable_id, :responseable_type)
     end
   end
 end
