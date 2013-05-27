@@ -1,6 +1,6 @@
 module Surveyable
   class Survey < ActiveRecord::Base
-    has_many :questions, dependent: :destroy
+    has_many :questions, dependent: :destroy, order: :position
     has_many :responses, dependent: :destroy
 
     validates :title, presence: true

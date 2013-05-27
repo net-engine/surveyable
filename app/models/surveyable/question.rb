@@ -11,7 +11,7 @@ module Surveyable
       ['Date Field', :date_field]
     ]
 
-    has_many :answers, dependent: :destroy
+    has_many :answers, dependent: :destroy, order: :position
     belongs_to :survey
 
     validates :content, :field_type, presence: true
