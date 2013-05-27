@@ -59,6 +59,6 @@ module Surveyable::ResponseableHelper
   end
 
   def render_date_field(question)
-    text_field "questions[#{question.id}]", '', class: 'survey_date'
+    text_field_tag "questions[#{question.id}]", class: 'survey_date'
   end
 end

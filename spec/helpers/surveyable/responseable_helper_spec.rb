@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Surveyable::ResponsesHelper do
+describe Surveyable::ResponseableHelper do
   describe "#render_answers_for" do
     context "when question is text field" do
       let(:question) { build_stubbed(:question, field_type: :text_field) }
@@ -75,10 +75,7 @@ describe Surveyable::ResponsesHelper do
       it "renders checkbox field" do
         date_input = helper.render_answers_for(question)
 
-        date_input.should have_selector('select')
-
-        date_input.should include("January")
-        date_input.should include("November")
+        date_input.should include('survey_date')
       end
     end
   end
