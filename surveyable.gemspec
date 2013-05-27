@@ -19,4 +19,5 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", "~> 3.2.13"
   s.add_dependency "strong_parameters", "~> 0.2.1"
   s.add_dependency "haml"
+  s.add_dependency "acts_as_list"
 end

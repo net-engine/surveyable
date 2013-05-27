@@ -1,5 +1,7 @@
 module Surveyable
   class Question < ActiveRecord::Base
+    acts_as_list scope: :survey_id
+
     FIELD_TYPES = [
       ['Text Field', :text_field],
       ['Text Area Field', :text_area_field],

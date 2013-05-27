@@ -1,6 +1,7 @@
 require 'active_support/core_ext/kernel/singleton_class'
 require 'surveyable/engine'
 require 'strong_parameters'
+require 'acts_as_list'
 
 module Surveyable
   mattr_accessor :application_controller_class
