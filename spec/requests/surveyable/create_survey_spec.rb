@@ -6,7 +6,7 @@ describe "Create survey" do
 
     fill_in "Survey name", with: "Survey #1"
 
-    all_questions = all('.question')
+    all_questions = all('.question_field')
 
     within(all_questions.first) do
       fill_in 'surveyable_survey_questions_attributes_0_content', with: "How are you today?"

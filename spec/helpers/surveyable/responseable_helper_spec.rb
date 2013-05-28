@@ -22,7 +22,7 @@ describe Surveyable::ResponseableHelper do
         form_output.should have_selector('option', text: survey.title)
         form_output.should include('7594')
         form_output.should include('User')
-        form_output.should include('Submit')
+        form_output.should include('Send')
       end
     end
   end
