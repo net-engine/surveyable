@@ -1,4 +1,8 @@
 - content_for :breadcrumbs do
   %li.current= link_to 'Manage Surveys', surveyable_surveys_path
 
-= render 'form'
+%section
+  %header
+    %h2 New Survey
+
+  %article.body= render 'form'

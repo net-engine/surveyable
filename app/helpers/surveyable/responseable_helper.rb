@@ -8,7 +8,7 @@ module Surveyable::ResponseableHelper
         concat f.hidden_field :responseable_id, value: responseable.id
         concat f.hidden_field :responseable_type, value: responseable.class.to_s
         concat f.collection_select :survey_id, surveys, :id, :title
-        concat f.submit 'Submit'
+        concat f.submit 'Send', class: 'send-survey-submit'
       end
     else
       content_tag(:p, 'No surveys created')
@@ -56,7 +56,7 @@ module Surveyable::ResponseableHelper
       radio_button = radio_button_tag("questions[#{question.id}]", answer.id, required: question.required)
       label = label_tag("questions_#{question.id}_#{answer.id}", answer.content)
 
-      radio_buttons += radio_button + label
+      radio_buttons += content_tag(:li, radio_button + label, class: 'inline-list-item')
     end
 
     radio_buttons.html_safe
@@ -69,7 +69,7 @@ module Surveyable::ResponseableHelper
       label = label_tag("questions_#{question.id}_#{answer.content}", answer.content)
       checkbox = check_box_tag("questions[#{question.id}][]", answer.id, false, id: "questions_#{question.id}_#{answer.content}")
 
-      checkboxes += checkbox + label
+      checkboxes += content_tag(:li, checkbox + label, class: 'inline-list-item')
     end
 
     checkboxes.html_safe

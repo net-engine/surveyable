@@ -1,15 +1,22 @@
-%header
-  %h2 #{@response.survey.title} - Response of #{@response.responseable.full_name}
+= content_for :breadcrumbs do
+  %li.current= link_to "#{@response.survey.title} - Response of #{@response.responseable.full_name}", @response.responseable
 
-%article.body
-  - @response.response_answers.group_by { |ra| ra.question }.each do |question, responses|
-    %p
-      .question
-        = question.content
+%section
 
-        - responses.each do |response|
-          .answer
-            = response.answer.try(:content) || response.free_content
+  %header
+    %h2 #{@response.survey.title} - Response of #{@response.responseable.full_name}
 
-= link_to 'Back', :back
+  %article.body
+    %dl.responses
+      - @response.response_answers.group_by { |ra| ra.question }.each do |question, responses|
+        .response-block
+          %dt.question
+            = question.content
+
+            - responses.each do |response|
+              %dd.answer
+                = response.answer.try(:content) || response.free_content
+
+    .form-actions
+      = link_to 'Back', :back, class: 'button'
 

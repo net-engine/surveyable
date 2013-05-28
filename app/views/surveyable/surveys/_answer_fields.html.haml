@@ -1,5 +1,3 @@
-%tr.togglable
-  %td
-  %td
-    = form.text_field :content
-    = link_to_remove_fields 'x', form
+%li.togglable.anwser_field
+  = form.text_field :content, placeholder: 'Answer'
+  = link_to_remove_fields 'x', form

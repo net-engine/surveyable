@@ -10,6 +10,8 @@ gem "jquery-rails"
 
 group :development, :test do
   gem 'haml-rails'
+  gem 'coffee-rails'
+  gem 'compass-rails'
   gem 'debugger'
   gem 'sqlite3'
   gem 'rspec-rails'

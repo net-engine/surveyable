@@ -1,0 +1,59 @@
+@import 'compass';
+
+.remove_link {
+  position: absolute;
+  top: -0.5em;
+  right: -0.5em;
+  background: white;
+  border-radius: 50%;
+  font-size: 1.25em;
+}
+
+.required:after {
+  content: "* ";
+  color: red;
+  font-size: 1.5em;
+}
+
+.question_field {
+  position: relative;
+  border: 1px solid #eee;
+  padding: 1em 1.5em;
+  margin: 0 0 1em;
+
+  &.text_field, &.text_area_field, &.date_field {
+    #answers { display: none; }
+  }
+}
+
+#new_surveyable_survey {
+  .question_field:nth-child(even) {
+    background: #fafafa;
+    border-color: #ddd;
+  }
+}
+
+.anwser_field {
+  position: relative;
+  margin: 0 0 1em;
+  float: left;
+  width: 50%;
+  padding-right: 1.5em;
+  @include box-sizing(border-box);
+
+  &:nth-child(odd) {
+    padding-right: .75em;
+
+    .remove_link { right: 0.15em; }
+  }
+
+  &:nth-child(even) {
+    padding-left: .75em;
+    padding-right: 0;
+
+    .remove_link { right: -0.5em; }
+  }
+
+  .remove_link { right: .75em; }
+}
+

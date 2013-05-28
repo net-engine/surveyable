@@ -1,8 +1,12 @@
 - content_for :breadcrumbs do
   %li.current= link_to 'Manage Surveys', surveyable_surveys_path
 
-= render 'form'
+%section
+  %header
+    %h2= "Edit #{@survey.title}"
+
+  %article.body= render 'form'
 
 - if @survey.has_been_answered?
   :javascript
-    $("#survey_form input").attr('disabled', true)
+    $("input, textarea, select", "#survey_form").attr('disabled', true)

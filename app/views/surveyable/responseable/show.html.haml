@@ -6,7 +6,7 @@
         - @survey.questions.each do |question|
           %li.question
             %label{ class: ('required' if question.required) }= question.content
-            .answers
+            %ol.answers
               = render_answers_for(question)
 
       .actions
@@ -15,10 +15,4 @@
 - else
   %p.empty This survey expired. Please contact your adviser to take this survey.
 
-:css
-  .required:after {
-    content: "* ";
-    color: red;
-    font-size: 2em;
-  }
 

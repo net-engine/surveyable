@@ -48,7 +48,21 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    chunky_png (1.2.8)
+    coffee-rails (3.2.2)
+      coffee-script (>= 2.2.0)
+      railties (~> 3.2.0)
+    coffee-script (2.2.0)
+      coffee-script-source
+      execjs
+    coffee-script-source (1.6.2)
     columnize (0.3.6)
+    compass (0.12.2)
+      chunky_png (~> 1.2)
+      fssm (>= 0.2.7)
+      sass (~> 3.1)
+    compass-rails (1.0.3)
+      compass (>= 0.12.2, < 0.14)
     database_cleaner (0.9.1)
     debugger (1.6.0)
       columnize (>= 0.3.1)
@@ -59,10 +73,13 @@ GEM
     diff-lcs (1.2.4)
     erubis (2.7.0)
     eventmachine (1.0.3)
+    execjs (1.4.0)
+      multi_json (~> 1.0)
     factory_girl (4.2.0)
       activesupport (>= 3.0.0)
     faye-websocket (0.4.7)
       eventmachine (>= 0.12.0)
+    fssm (0.2.10)
     haml (4.0.2)
       tilt
     haml-rails (0.4)
@@ -127,6 +144,7 @@ GEM
       rspec-core (~> 2.13.0)
       rspec-expectations (~> 2.13.0)
       rspec-mocks (~> 2.13.0)
+    sass (3.2.9)
     shoulda-matchers (2.1.0)
       activesupport (>= 3.0.0)
     sprockets (2.2.2)
@@ -153,6 +171,8 @@ PLATFORMS
 
 DEPENDENCIES
   capybara
+  coffee-rails
+  compass-rails
   database_cleaner
   debugger
   factory_girl
