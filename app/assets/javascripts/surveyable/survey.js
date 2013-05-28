@@ -8,7 +8,7 @@ add_fields = function(link, association, content) {
 
 remove_fields = function(link) {
   $(link).prev("input[type=hidden]").val("1");
-  $(link).closest(".togglable").remove();
+  $(link).closest(".togglable").hide();
 };
 
 question_type = function() {
