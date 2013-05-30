@@ -52,5 +52,27 @@ module Surveyable
         described_class.completed.should == [response2]
       end
     end
+
+    describe "invitations" do
+      context "when invite responseable via email is set to true" do
+        before { Surveyable.invite_responseable_via_email = true }
+
+        it "sends email to the responseable" do
+          SurveyMailer.should_receive(:invitation).with(kind_of(described_class)).and_return(stub(deliver: true))
+
+          create(:response)
+        end
+      end
+
+      context "when invite responseable via email is set to false" do
+        before { Surveyable.invite_responseable_via_email = false }
+
+        it "does not send email to the responseable" do
+          SurveyMailer.should_not_receive(:invitation)
+
+          create(:response)
+        end
+      end
+    end
   end
 end

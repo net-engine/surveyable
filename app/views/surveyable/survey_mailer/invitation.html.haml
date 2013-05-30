@@ -1,0 +1,5 @@
+%p Hi
+
+%p= "You've been invited to respond #{@survey.title}"
+
+%p= link_to 'Click here to start', response_survey_url(@response.access_token)

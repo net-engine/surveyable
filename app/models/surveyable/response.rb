@@ -11,6 +11,8 @@ module Surveyable
 
     scope :completed, where("completed_at IS NOT NULL")
 
+    after_create :invite_responseable
+
     def completed?
       !!completed_at
     end
@@ -20,6 +22,10 @@ module Surveyable
     end
 
     private
+
+    def invite_responseable
+      SurveyMailer.invitation(self).deliver if Surveyable.invite_responseable_via_email
+    end
 
     def generate_token
       self.access_token = SecureRandom.uuid

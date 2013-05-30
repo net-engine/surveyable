@@ -9,6 +9,9 @@ module Surveyable
 
     def complete
       @response = Response.where(access_token: params[:access_token]).first
+
+      redirect_to response_survey_path(@response.access_token) and return if @response.completed?
+
       ResponseHandler.handle(@response, params[:questions])
       @response.complete!
     end

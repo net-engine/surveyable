@@ -42,4 +42,9 @@ FactoryGirl.define do
     access_token SecureRandom.uuid
     survey
   end
+
+  factory :person do
+    name 'Testing'
+    email 'testing@email.com'
+  end
 end
