@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe Surveyable::ResponseableController do
+describe Surveyable::RespondableController do
   let(:person) { create(:person) }
-  let(:response) { create(:response, responseable: person) }
+  let(:response) { create(:response, respondable: person) }
 
   describe "#complete" do
     context "when response has already been completed" do

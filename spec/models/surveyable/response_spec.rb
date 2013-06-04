@@ -3,7 +3,7 @@ require 'spec_helper'
 module Surveyable
   describe Response do
     it { should belong_to(:survey) }
-    it { should belong_to(:responseable) }
+    it { should belong_to(:respondable) }
     it { should have_many(:response_answers) }
     it { should validate_presence_of(:survey) }
 
@@ -54,20 +54,20 @@ module Surveyable
     end
 
     describe "invitations" do
-      context "when invite responseable via email is set to true" do
-        before { Surveyable.invite_responseable_via_email = true }
+      context "when invite respondable via email is set to true" do
+        before { Surveyable.invite_respondable_via_email = true }
 
-        it "sends email to the responseable" do
+        it "sends email to the respondable" do
           SurveyMailer.should_receive(:invitation).with(kind_of(described_class)).and_return(stub(deliver: true))
 
           create(:response)
         end
       end
 
-      context "when invite responseable via email is set to false" do
-        before { Surveyable.invite_responseable_via_email = false }
+      context "when invite respondable via email is set to false" do
+        before { Surveyable.invite_respondable_via_email = false }
 
-        it "does not send email to the responseable" do
+        it "does not send email to the respondable" do
           SurveyMailer.should_not_receive(:invitation)
 
           create(:response)

@@ -1,6 +1,6 @@
 module Surveyable
-  class ResponseableController < ApplicationController
-    layout 'responseable'
+  class RespondableController < ApplicationController
+    layout 'respondable'
 
     def show
       @response = Response.where(access_token: params[:access_token]).first

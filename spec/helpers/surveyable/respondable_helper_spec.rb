@@ -1,12 +1,12 @@
 require 'spec_helper'
 
-describe Surveyable::ResponseableHelper do
-  describe "#responseable_form_for" do
+describe Surveyable::RespondableHelper do
+  describe "#respondable_form_for" do
     let(:user) { mock(:user, id: 7594, class: 'User') }
 
     context "when there is no survey" do
       it "returns no survey created" do
-        helper.responseable_form_for(user).should == '<p>No surveys created</p>'
+        helper.respondable_form_for(user).should == '<p>No surveys created</p>'
       end
     end
 
@@ -14,7 +14,7 @@ describe Surveyable::ResponseableHelper do
       let!(:survey) { create(:survey) }
 
       it "returns form to create survey" do
-        form_output = helper.responseable_form_for(user)
+        form_output = helper.respondable_form_for(user)
 
         form_output.should have_selector('input')
         form_output.should have_selector('select')

@@ -1,12 +1,12 @@
-module Surveyable::ResponseableHelper
-  def responseable_form_for(responseable)
+module Surveyable::RespondableHelper
+  def respondable_form_for(respondable)
     surveys = Surveyable::Survey.enabled
     response = Surveyable::Response.new
 
     if surveys.any?
       form_for(response) do |f|
-        concat f.hidden_field :responseable_id, value: responseable.id
-        concat f.hidden_field :responseable_type, value: responseable.class.to_s
+        concat f.hidden_field :respondable_id, value: respondable.id
+        concat f.hidden_field :respondable_type, value: respondable.class.to_s
         concat f.collection_select :survey_id, surveys, :id, :title
         concat f.submit 'Send', class: 'send-survey-submit'
       end

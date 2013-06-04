@@ -1,3 +1,3 @@
 class Person < ActiveRecord::Base
-  include Surveyable::Responseable
+  include Surveyable::Respondable
 end

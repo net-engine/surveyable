@@ -4,6 +4,6 @@ Rails.application.routes.draw do
     resources :responses
   end
 
-  get '/surveys/:access_token' => 'surveyable/responseable#show', as: :response_survey
-  post '/surveys/:access_token' => 'surveyable/responseable#complete', as: :submit_response
+  get '/surveys/:access_token' => 'surveyable/respondable#show', as: :response_survey
+  post '/surveys/:access_token' => 'surveyable/respondable#complete', as: :submit_response
 end

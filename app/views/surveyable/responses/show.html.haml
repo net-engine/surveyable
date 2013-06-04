@@ -1,10 +1,10 @@
 = content_for :breadcrumbs do
-  %li.current= link_to "#{@response.survey.title} - Response of #{@response.responseable.full_name}", @response.responseable
+  %li.current= link_to "#{@response.survey.title} - Response of #{@response.respondable.full_name}", @response.respondable
 
 %section
 
   %header
-    %h2 #{@response.survey.title} - Response of #{@response.responseable.full_name}
+    %h2 #{@response.survey.title} - Response of #{@response.respondable.full_name}
 
   %article.body
     %dl.responses

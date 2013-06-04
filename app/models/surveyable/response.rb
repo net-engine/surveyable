@@ -1,6 +1,6 @@
 module Surveyable
   class Response < ActiveRecord::Base
-    belongs_to :responseable, polymorphic: true
+    belongs_to :respondable, polymorphic: true
     belongs_to :survey
 
     has_many :response_answers
@@ -11,7 +11,7 @@ module Surveyable
 
     scope :completed, where("completed_at IS NOT NULL")
 
-    after_create :invite_responseable
+    after_create :invite_respondable
 
     def completed?
       !!completed_at
@@ -23,8 +23,8 @@ module Surveyable
 
     private
 
-    def invite_responseable
-      SurveyMailer.invitation(self).deliver if Surveyable.invite_responseable_via_email
+    def invite_respondable
+      SurveyMailer.invitation(self).deliver if Surveyable.invite_respondable_via_email
     end
 
     def generate_token

@@ -2,8 +2,8 @@ class CreateSurveyableResponses < ActiveRecord::Migration
   def change
     create_table :responses do |t|
       t.references :survey
-      t.integer :responseable_id
-      t.string :responseable_type
+      t.integer :respondable_id
+      t.string :respondable_type
       t.timestamp :completed_at
 
       t.timestamps

@@ -57,11 +57,11 @@ ActiveRecord::Schema.define(:version => 20130530232657) do
 
   create_table "responses", :force => true do |t|
     t.integer  "survey_id"
-    t.integer  "responseable_id"
-    t.string   "responseable_type"
+    t.integer  "respondable_id"
+    t.string   "respondable_type"
     t.datetime "completed_at"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
     t.string   "access_token"
   end
 

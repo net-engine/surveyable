@@ -26,7 +26,7 @@ module Surveyable
     private
 
     def response_attributes
-      params.require(:surveyable_response).permit(:survey_id, :responseable_id, :responseable_type)
+      params.require(:surveyable_response).permit(:survey_id, :respondable_id, :respondable_type)
     end
   end
 end
