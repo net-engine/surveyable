@@ -12,7 +12,7 @@ remove_fields = function(link) {
 };
 
 question_type = function() {
-  $('.question_field_type_select').live('change', function(e) {
+  $('.question_field_type_select').on('change', function(e) {
     var $this = $(this)
     var field = $this.closest('.question_field')
 
