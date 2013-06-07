@@ -11,16 +11,10 @@ remove_fields = function(link) {
   $(link).closest(".togglable").hide();
 };
 
-question_type = function() {
-  $('.question_field_type_select').on('change', function(e) {
-    var $this = $(this)
-    var field = $this.closest('.question_field')
+$(document).on('change', '.question_field_type_select', function(e) {
+  var $this = $(this);
+  var field = $this.closest('.question_field');
 
-    field.removeClass();
-    field.addClass( "question_field " + $this.find('option:selected').val() );
-  });
-};
-
-$(document).ready(function() {
-  question_type();
+  field.removeAttr('class')
+  field.addClass("question_field " + $this.find('option:selected').val());
 });
