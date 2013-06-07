@@ -1,5 +1,5 @@
 module Surveyable
-  class SurveysController < ApplicationController
+  class SurveysController < ::Surveyable::ApplicationController
     begin
       load_and_authorize_resource
     rescue NameError

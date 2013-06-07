@@ -1,5 +1,5 @@
 module Surveyable
-  class ResponsesController < ApplicationController
+  class ResponsesController < ::Surveyable::ApplicationController
     def create
       @response = Response.new(response_attributes)
 

@@ -1,5 +1,5 @@
 module Surveyable
-  class RespondableController < ApplicationController
+  class RespondableController < ::Surveyable::ApplicationController
     layout 'respondable'
 
     def show
