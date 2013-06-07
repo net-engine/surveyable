@@ -1,5 +1,5 @@
 class Surveyable::SurveyMailer < ActionMailer::Base
-  default from: "info@fls.com"
+  default from: Surveyable.from_email
 
   def invitation(response)
     @response = response
