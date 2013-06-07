@@ -13,12 +13,18 @@ module Surveyable
 
     after_create :invite_respondable
 
+    attr_writer :email
+
     def completed?
       !!completed_at
     end
 
     def complete!
       update_attribute(:completed_at, Time.now)
+    end
+
+    def email
+      @email || respondable.email
     end
 
     private

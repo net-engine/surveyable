@@ -6,6 +6,7 @@ module Surveyable
     it { should belong_to(:respondable) }
     it { should have_many(:response_answers) }
     it { should validate_presence_of(:survey) }
+    it { should respond_to(:email) }
 
     describe "#generate_token" do
       let(:survey) { create(:survey) }
@@ -72,6 +73,18 @@ module Surveyable
 
           create(:response)
         end
+      end
+    end
+
+    describe "email" do
+      context "when an email is provided" do
+        subject(:response) { build_stubbed(:response, email: "test@netengine.com.au") }
+        its(:email) { should == "test@netengine.com.au" }
+      end
+
+      context "when no email is provided" do
+        subject(:response) { build_stubbed(:response) }
+        its(:email) { should == response.respondable.email }
       end
     end
   end
