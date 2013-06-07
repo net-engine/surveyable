@@ -23,5 +23,4 @@ question_type = function() {
 
 $(document).ready(function() {
   question_type();
-  $('.survey_date').datepicker()
 });
