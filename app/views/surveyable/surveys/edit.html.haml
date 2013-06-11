@@ -5,7 +5,7 @@
   %header
     %h2= "Edit #{@survey.title}"
 
-  %article.body= render 'form'
+%article.body= render 'form'
 
 - if @survey.has_been_answered?
   :javascript
