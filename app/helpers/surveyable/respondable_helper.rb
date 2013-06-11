@@ -53,7 +53,7 @@ module Surveyable::RespondableHelper
     radio_buttons = ''
 
     question.answers.each do |answer|
-      radio_button = radio_button_tag("questions[#{question.id}]", answer.id, required: question.required)
+      radio_button = radio_button_tag("questions[#{question.id}]", answer.id, false, required: question.required)
       label = label_tag("questions_#{question.id}_#{answer.id}", answer.content)
 
       radio_buttons += content_tag(:li, radio_button + label, class: 'inline-list-item')
