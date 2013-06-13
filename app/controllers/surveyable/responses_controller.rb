@@ -4,7 +4,13 @@ module Surveyable
       @response = Response.new(response_attributes)
 
       if @response.save
-        flash[:notice] = "Survey was succesfully created"
+        flash[:notice] = "Response was succesfully created"
+
+        if params.has_key?(:email_survey)
+          Surveyable::SurveyMailer.invitation(@response, @response.respondable.email).deliver
+        elsif params.has_key?(:answer_survey)
+          redirect_to response_survey_url(@response.access_token) and return
+        end
       else
         flash[:error] = @response.errors.full_messages.join(", ")
       end

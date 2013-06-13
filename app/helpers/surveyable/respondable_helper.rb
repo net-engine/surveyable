@@ -8,7 +8,9 @@ module Surveyable::RespondableHelper
         concat f.hidden_field :respondable_id, value: respondable.id
         concat f.hidden_field :respondable_type, value: respondable.class.to_s
         concat f.collection_select :survey_id, surveys, :id, :title
-        concat f.submit 'Send', class: 'send-survey-submit'
+        concat f.submit 'Email survey', name: :email_survey, class: 'send-survey-submit'
+        concat ' or '
+        concat f.submit 'Answer survey', name: :answer_survey, class: 'send-survey-submit'
       end
     else
       content_tag(:p, 'No surveys created')
