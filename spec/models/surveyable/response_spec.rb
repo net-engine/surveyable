@@ -6,7 +6,6 @@ module Surveyable
     it { should belong_to(:respondable) }
     it { should have_many(:response_answers) }
     it { should validate_presence_of(:survey) }
-    it { should respond_to(:email) }
 
     describe "#generate_token" do
       let(:survey) { create(:survey) }
@@ -51,40 +50,6 @@ module Surveyable
 
       it "returns only completed surveys" do
         described_class.completed.should == [response2]
-      end
-    end
-
-    describe "invitations" do
-      context "when invite respondable via email is set to true" do
-        before { Surveyable.invite_respondable_via_email = true }
-
-        it "sends email to the respondable" do
-          SurveyMailer.should_receive(:invitation).with(kind_of(described_class)).and_return(stub(deliver: true))
-
-          create(:response)
-        end
-      end
-
-      context "when invite respondable via email is set to false" do
-        before { Surveyable.invite_respondable_via_email = false }
-
-        it "does not send email to the respondable" do
-          SurveyMailer.should_not_receive(:invitation)
-
-          create(:response)
-        end
-      end
-    end
-
-    describe "email" do
-      context "when an email is provided" do
-        subject(:response) { build_stubbed(:response, email: "test@netengine.com.au") }
-        its(:email) { should == "test@netengine.com.au" }
-      end
-
-      context "when no email is provided" do
-        subject(:response) { build_stubbed(:response) }
-        its(:email) { should == response.respondable.email }
       end
     end
   end

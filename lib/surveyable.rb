@@ -4,7 +4,7 @@ require 'strong_parameters'
 require 'acts_as_list'
 
 module Surveyable
-  mattr_accessor :application_controller_class, :invite_respondable_via_email, :from_email
+  mattr_accessor :application_controller_class, :from_email
 
   class << self
     def application_controller_class
@@ -15,10 +15,6 @@ module Surveyable
       else
         ActionController::Base
       end
-    end
-
-    def invite_respondable_via_email
-      !!@@invite_respondable_via_email
     end
 
     def from_email

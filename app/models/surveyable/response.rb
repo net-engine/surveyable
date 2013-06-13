@@ -11,10 +11,6 @@ module Surveyable
 
     scope :completed, where("completed_at IS NOT NULL")
 
-    after_create :invite_respondable
-
-    attr_writer :email
-
     def completed?
       !!completed_at
     end
@@ -23,15 +19,7 @@ module Surveyable
       update_attribute(:completed_at, Time.now)
     end
 
-    def email
-      @email || respondable.email
-    end
-
     private
-
-    def invite_respondable
-      SurveyMailer.invitation(self).deliver if Surveyable.invite_respondable_via_email
-    end
 
     def generate_token
       self.access_token = SecureRandom.uuid
