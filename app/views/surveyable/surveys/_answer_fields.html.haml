@@ -1,3 +1,4 @@
 %li.togglable.anwser_field
   = form.text_field :content, placeholder: 'Answer'
   = link_to_remove_fields 'x', form
+  = form.hidden_field :position, class: "answer-position"

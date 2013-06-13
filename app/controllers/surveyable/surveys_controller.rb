@@ -59,7 +59,7 @@ module Surveyable
 
     def survey_attributes
       answers_attributes = [:position, :content, :id, :_destroy]
-      questions_attributes = [:content, :field_type, :required, :id, :_destroy,
+      questions_attributes = [:position, :content, :field_type, :required, :id, :_destroy,
                               answers_attributes: answers_attributes]
 
       params.require(:surveyable_survey).

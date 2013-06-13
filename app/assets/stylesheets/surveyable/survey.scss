@@ -22,7 +22,7 @@
   margin: 0 0 1em;
 
   &.text_field, &.text_area_field, &.date_field {
-    #answers { display: none; }
+    .answers_list { display: none; }
   }
 }
 

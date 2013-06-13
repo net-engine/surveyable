@@ -1,5 +1,6 @@
 %li.question_field.text_field.togglable
-  %ol.fields  
+  %ol.fields
+    = form.hidden_field :position, class: "question-position"
 
     %li
       %label Question
@@ -16,7 +17,7 @@
       
       .clearfix
 
-    %fieldset#answers
+    %fieldset.answers_list
       = form.fields_for :answers do |form_answer|
         = render 'answer_fields', form: form_answer
       .clearfix

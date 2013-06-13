@@ -10,7 +10,7 @@
       %li#questions
         %label Questions
         
-        %ol
+        %ol.questions_list
           = form.fields_for :questions do |form_question|
             = render 'question_fields', form: form_question
         
