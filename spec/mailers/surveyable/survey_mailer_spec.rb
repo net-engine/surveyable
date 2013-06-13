@@ -6,10 +6,10 @@ describe Surveyable::SurveyMailer do
 
   describe "#invitation" do
     it "sends email to respondable" do
-      mail = described_class.invitation(response)
+      mail = described_class.invitation(response, person.email)
 
       mail.subject.should == "You've been invited to respond #{response.survey.title}"
-      mail.to.should == person.email
+      mail.to.should == [person.email]
     end
   end
 end
