@@ -22,8 +22,8 @@ describe Surveyable::RespondableHelper do
         form_output.should have_selector('option', text: survey.title)
         form_output.should include('7594')
         form_output.should include('User')
-        form_output.should include('Email survey')
-        form_output.should include('Answer survey')
+        form_output.should include('Send the survey')
+        form_output.should include('Complete the survey')
       end
     end
   end
