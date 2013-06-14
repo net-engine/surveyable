@@ -1,10 +1,10 @@
 = content_for :breadcrumbs do
-  %li.current= link_to "#{@response.survey.title} - Response of #{@response.respondable.full_name}", @response.respondable
+  %li.current= link_to "#{@response.survey.title} - Response of #{@response.respondable}", '#'
 
 %section
 
   %header
-    %h2 #{@response.survey.title} - Response of #{@response.respondable.full_name}
+    %h2 #{@response.survey.title} - Response of #{@response.respondable}
 
   %article.body
     %dl.responses
@@ -19,4 +19,3 @@
 
     .form-actions
       = link_to 'Back', :back, class: 'button'
-
