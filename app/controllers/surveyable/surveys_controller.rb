@@ -58,7 +58,7 @@ module Surveyable
     end
 
     def survey_attributes
-      answers_attributes = [:position, :content, :id, :_destroy]
+      answers_attributes = [:position, :content, :score, :id, :_destroy]
       questions_attributes = [:position, :content, :field_type, :required, :id, :_destroy,
                               answers_attributes: answers_attributes]
 

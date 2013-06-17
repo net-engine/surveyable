@@ -1,5 +1,7 @@
 @import 'compass';
 
+$radius: 3px;
+
 .remove_link {
   position: absolute;
   top: -0.5em;
@@ -7,7 +9,27 @@
   background: white;
   border-radius: 50%;
   font-size: 1.25em;
+  z-index: 10;
 }
+
+.handle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2em;
+  line-height: 2em;
+  background: whitesmoke;
+  cursor: move;
+  text-align: center;
+
+  &:before { content: '\2195'; }
+
+  &:hover {
+    background: #eee;
+    color: #222;
+  }
+}
+
 
 .required:after {
   content: "* ";
@@ -15,45 +37,82 @@
   font-size: 1.5em;
 }
 
+.question-title-field {
+
+  label {
+    float: left;
+    margin: 0 .75em 0 0;
+    line-height: 2em;
+  }
+
+  input { width: 70%; }
+}
+
 .question_field {
   position: relative;
-  border: 1px solid #eee;
-  padding: 1em 1.5em;
+  background: white;
+  border: 1px solid #ddd;
+  padding: 1em;
+  padding-left: 3em;
   margin: 0 0 1em;
+  @include border-radius($radius);
+
+  &:nth-of-type(even) {
+    background: #fafafa;
+    border-color: #ccc;
+  }
 
   &.text_field, &.text_area_field, &.date_field {
     .answers_list { display: none; }
   }
-}
 
-#new_surveyable_survey {
-  .question_field:nth-child(even) {
-    background: #fafafa;
-    border-color: #ddd;
+  .options {
+    clear: both;
+
+    li {
+      margin: 0 0 1em;
+
+      select { margin: 0; }
+    }
   }
+
+  .question_field_handle {
+    border-right: 1px solid #ddd;
+    bottom: 0;
+  }
+
 }
 
 .anwser_field {
   position: relative;
-  margin: 0 0 1em;
-  float: left;
-  width: 50%;
-  padding-right: 1.5em;
-  @include box-sizing(border-box);
+  margin: 0 0 .5em;
+  padding: 0 7em 0 2em;
 
-  &:nth-child(odd) {
-    padding-right: .75em;
-
-    .remove_link { right: 0.15em; }
+  input {
+    width: 100%;
+    margin: 0;
+    @include border-radius(0);
   }
 
-  &:nth-child(even) {
-    padding-left: .75em;
-    padding-right: 0;
-
-    .remove_link { right: -0.5em; }
+  .score {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 7em;
+    border-left-width: 0;
+    @include border-radius(0 $radius $radius 0); 
   }
 
-  .remove_link { right: .75em; }
+  .answer_field_handle {
+    height: 2em;
+    border: 1px solid #ddd;
+    border-right-width: 0;
+    @include border-radius($radius 0 0 $radius);
+    @include box-sizing(border-box);
+  }
+
+  &:hover .answer_field_handle {
+    background: #ddd;
+    border-color: #ccc;
+  }
 }
-

@@ -1,8 +1,9 @@
 %li.question_field.text_field.togglable
+  .handle.question_field_handle
   %ol.fields
     = form.hidden_field :position, class: "question-position"
 
-    %li
+    %li.question-title-field
       %label Question
       = form.text_field :content
     

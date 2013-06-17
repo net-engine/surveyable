@@ -39,7 +39,10 @@
   var makeMovableQuestions = function(){
     $('.questions_list').sortable({
       items: '.question_field',
-      containment: '.questions_list',
+      containment: 'parent',
+      handle: '.handle',
+      axis: 'y',
+      tolerance: "pointer",
       update: function(){
         reorderQuestionPosition();
       }
@@ -49,7 +52,10 @@
   var makeMovableAnswers = function(){
     $('.answers_list').sortable({
       items: '.anwser_field',
-      containment: '.answers_list',
+      containment: 'parent',
+      handle: '.handle',
+      axis: 'y',
+      tolerance: "pointer",
       update: function(){
         reorderAnswerPosition();
       }
