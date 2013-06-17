@@ -77,7 +77,6 @@ module Surveyable
           answer3.score = 100
           [answer1, answer2, answer3].map(&:save)
           # ((30 + 70) / 2) + 100) / 2
-          debugger
           response.reload.score.should == 75
         end
       end
