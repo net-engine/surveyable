@@ -11,6 +11,7 @@ module Surveyable
     before_validation :generate_token, on: :create
 
     scope :completed, where("completed_at IS NOT NULL")
+    scope :pending, where("completed_at IS NULL")
 
     def completed?
       !!completed_at

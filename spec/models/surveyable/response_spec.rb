@@ -82,5 +82,14 @@ module Surveyable
         end
       end
     end
+
+    describe ".pending" do
+      let(:response1) { create(:response, completed_at: nil) }
+      let(:response2) { create(:response, completed_at: Time.now) }
+
+      it "returns only pending surveys" do
+        described_class.pending.should == [response1]
+      end
+    end
   end
 end
