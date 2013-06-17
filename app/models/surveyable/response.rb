@@ -27,7 +27,7 @@ module Surveyable
         score = values.sum.to_f / values.size
       end
       # Averaging all the scores for all questions
-      (scores.sum.to_f / scores.size).round
+      scores.any? ? ((scores.sum.to_f / scores.size).round) : "No Score"
     end
 
 

@@ -80,6 +80,15 @@ module Surveyable
           response.reload.score.should == 75
         end
       end
+
+      context "when there are no score for this response" do
+        let(:survey)   { create(:survey_with_questions_and_answers) }
+        let(:response) { create(:response, survey: survey) }
+
+        it "returns No Score" do
+          response.score.should == "No Score"
+        end
+      end
     end
 
     describe ".pending" do
