@@ -52,5 +52,34 @@ module Surveyable
         described_class.completed.should == [response2]
       end
     end
+
+    describe "#score" do
+      context "when there are two answers for a first question and one answer for a second question" do
+        let(:survey)   { create(:survey_with_questions_and_answers) }
+        let(:response) { create(:response, survey: survey) }
+        let(:ra1)      { { response: response, question: survey.questions.first, answer: survey.questions.first.answers.first } }
+        let(:ra2)      { { response: response, question: survey.questions.first, answer: survey.questions.first.answers[1] } }
+        let(:ra3)      { { response: response, question: survey.questions[1],    answer: survey.questions[1].answers.first } }
+
+        before do
+          response.response_answers.create(ra1)
+          response.response_answers.create(ra2)
+          response.response_answers.create(ra3)
+        end
+
+        it "sets the score properly" do
+          answer1 = survey.questions.first.answers.first
+          answer2 = survey.questions.first.answers[1]
+          answer3 = survey.questions[1].answers.first
+          answer1.score = 30
+          answer2.score = 70
+          answer3.score = 100
+          [answer1, answer2, answer3].map(&:save)
+          # ((30 + 70) / 2) + 100) / 2
+          debugger
+          response.reload.score.should == 75
+        end
+      end
+    end
   end
 end

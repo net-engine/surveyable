@@ -36,6 +36,7 @@ FactoryGirl.define do
   factory :answer, class: Surveyable::Answer do
     content "Yes"
     position
+    score nil
   end
 
   factory :response, class: Surveyable::Response do

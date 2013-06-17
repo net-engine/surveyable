@@ -2,3 +2,4 @@
   = form.text_field :content, placeholder: 'Answer'
   = link_to_remove_fields 'x', form
   = form.hidden_field :position, class: "answer-position"
+  = form.number_field :score, min: 0, max: 100
