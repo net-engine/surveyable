@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(:version => 20130614053033) do
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
     t.string   "access_token"
+    t.integer  "completed_by_id"
   end
 
   add_index "responses", ["survey_id"], :name => "index_responses_on_survey_id"
@@ -73,6 +74,11 @@ ActiveRecord::Schema.define(:version => 20130614053033) do
     t.boolean  "enabled",    :default => true
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
+  end
+
+  create_table "users", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
 end

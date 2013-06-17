@@ -1,4 +1,12 @@
 module Surveyable::RespondableHelper
+  def completed_by_id
+    if current_user
+      current_user.id
+    else
+      (@response.respondable_type.to_s == "User") ? @response.respondable_id : nil
+    end
+  end
+
   def respondable_form_for(respondable)
     surveys = Surveyable::Survey.enabled
     response = Surveyable::Response.new
@@ -16,7 +24,6 @@ module Surveyable::RespondableHelper
       content_tag(:p, 'No surveys created')
     end
   end
-
 
   def render_answers_for(question)
     case question.field_type.to_sym

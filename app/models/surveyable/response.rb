@@ -2,6 +2,7 @@ module Surveyable
   class Response < ActiveRecord::Base
     belongs_to :respondable, polymorphic: true
     belongs_to :survey
+    belongs_to :completed_by, class_name: User
 
     has_many :response_answers
 
