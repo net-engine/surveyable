@@ -18,7 +18,7 @@ module Surveyable
         case question.field_type.to_sym
         when :select_field, :radio_button_field, :check_box_field
           create_multiple_choice_answer(question.id, values)
-        when :text_field, :text_area_field, :date_field
+        when :text_field, :text_area_field, :date_field, :rank_field
           create_text_answer(question.id, values)
         end
       end

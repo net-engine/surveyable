@@ -39,6 +39,8 @@ module Surveyable::RespondableHelper
       render_check_box_field(question)
     when :date_field
       render_date_field(question)
+    when :rank_field
+      render_rank_field(question)
     end
   end
 
@@ -86,5 +88,18 @@ module Surveyable::RespondableHelper
 
   def render_date_field(question)
     text_field_tag "questions[#{question.id}]", '', { class: 'survey_date', required: question.required }
+  end
+
+  def render_rank_field(question)
+    radio_buttons = ''
+
+    (question.minimum..question.maximum).each do |rank|
+      radio_button = radio_button_tag("questions[#{question.id}]", rank, false, required: question.required)
+      label = label_tag("questions_#{question.id}_#{rank}", rank)
+
+      radio_buttons += content_tag(:li, radio_button + label, class: 'inline-list-item')
+    end
+
+    radio_buttons.html_safe
   end
 end

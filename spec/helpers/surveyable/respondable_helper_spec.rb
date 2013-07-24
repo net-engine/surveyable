@@ -96,6 +96,22 @@ describe Surveyable::RespondableHelper do
       end
     end
 
+    context "when question is rank field" do
+      let(:question) { create(:question, field_type: :rank_field, minimum: 1, maximum: 5) }
+
+      it "renders checkbox field" do
+        rank_input = helper.render_answers_for(question)
+
+        rank_input.should have_selector('input', count: 5)
+        rank_input.should include('type="radio"')
+
+        (question.minimum..question.maximum).each do |rank|
+          rank_input.should have_selector('label', text: rank)
+          rank_input.should include(rank.to_s)
+        end
+      end
+    end
+
     context "when question is date field" do
       let(:question) { build_stubbed(:question, field_type: :date_field) }
 

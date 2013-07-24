@@ -62,8 +62,12 @@ $radius: 3px;
     border-color: #ccc;
   }
 
-  &.text_field, &.text_area_field, &.date_field {
+  &.text_field, &.text_area_field, &.date_field, &.rank_field {
     .answers_list { display: none; }
+  }
+
+  .rank_field_min, .rank_field_max {
+    display: none;
   }
 
   .options {
@@ -100,7 +104,7 @@ $radius: 3px;
     right: 0;
     width: 7em;
     border-left-width: 0;
-    @include border-radius(0 $radius $radius 0); 
+    @include border-radius(0 $radius $radius 0);
   }
 
   .answer_field_handle {
@@ -114,5 +118,11 @@ $radius: 3px;
   &:hover .answer_field_handle {
     background: #ddd;
     border-color: #ccc;
+  }
+}
+
+.question_field.rank_field {
+  .rank_field_min, .rank_field_max {
+    display: block;
   }
 }
