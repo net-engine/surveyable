@@ -4,7 +4,7 @@ module Surveyable
   describe Response do
     it { should belong_to(:survey) }
     it { should belong_to(:respondable) }
-    it { should belong_to(:completed_by) }
+    it { should belong_to(:respondent) }
     it { should have_many(:response_answers) }
     it { should validate_presence_of(:survey) }
 

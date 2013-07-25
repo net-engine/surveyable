@@ -122,36 +122,4 @@ describe Surveyable::RespondableHelper do
       end
     end
   end
-
-  describe "#completed_by_id" do
-    context "when current user is present" do
-      before { helper.stub(:current_user).and_return(mock(id: 22)) }
-
-      it "returns current user id as completed by" do
-        helper.completed_by_id.should == 22
-      end
-    end
-
-    context "when respondable type is user" do
-      before(:each) do
-        helper.stub(:current_user).and_return(nil)
-        @response = mock(respondable_type: 'User', respondable_id: 10)
-      end
-
-      it "returns respondable id" do
-        helper.completed_by_id.should == 10
-      end
-    end
-
-    context "when respondable type is not user" do
-      before(:each) do
-        helper.stub(:current_user).and_return(nil)
-        @response = mock(respondable_type: 'Service', respondable_id: 10)
-      end
-
-      it "returns respondable id" do
-        helper.completed_by_id.should == nil
-      end
-    end
-  end
 end

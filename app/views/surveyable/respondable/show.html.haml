@@ -1,8 +1,6 @@
 - if @survey
   %h2= @survey.title
   = form_tag submit_response_path do
-    = hidden_field_tag :completed_by_id, completed_by_id
-
     %section#questions
       %ol
         - @survey.questions.each do |question|
@@ -16,5 +14,4 @@
 
 - else
   %p.empty This survey expired. Please contact your adviser to take this survey.
-
 

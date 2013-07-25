@@ -1,12 +1,4 @@
 module Surveyable::RespondableHelper
-  def completed_by_id
-    if current_user
-      current_user.id
-    else
-      (@response.respondable_type.to_s == "User") ? @response.respondable_id : nil
-    end
-  end
-
   def respondable_form_for(respondable)
     surveys = Surveyable::Survey.enabled
     response = Surveyable::Response.new

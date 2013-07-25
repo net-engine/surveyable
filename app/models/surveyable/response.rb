@@ -1,8 +1,8 @@
 module Surveyable
   class Response < ActiveRecord::Base
     belongs_to :respondable, polymorphic: true
+    belongs_to :respondent, polymorphic: true
     belongs_to :survey
-    belongs_to :completed_by, class_name: User
 
     has_many :response_answers
 
@@ -10,8 +10,8 @@ module Surveyable
 
     before_validation :generate_token, on: :create
 
-    scope :completed, where("completed_at IS NOT NULL")
-    scope :pending, where("completed_at IS NULL")
+    scope :completed, ->{ where("completed_at IS NOT NULL") }
+    scope :pending, ->{ where("completed_at IS NULL") }
 
     def completed?
       !!completed_at
@@ -29,7 +29,6 @@ module Surveyable
       # Averaging all the scores for all questions
       scores.any? ? ((scores.sum.to_f / scores.size).round) : "No Score"
     end
-
 
     private
 
