@@ -1,22 +1,4 @@
 module Surveyable::RespondableHelper
-  def respondable_form_for(respondable)
-    surveys = Surveyable::Survey.enabled
-    response = Surveyable::Response.new
-
-    if surveys.any?
-      form_for(response) do |f|
-        concat f.hidden_field :respondable_id, value: respondable.id
-        concat f.hidden_field :respondable_type, value: respondable.class.to_s
-        concat f.collection_select :survey_id, surveys, :id, :title
-        concat f.submit 'Send the survey', name: :email_survey, class: 'send-survey-submit'
-        concat ' or '
-        concat f.submit 'Complete the survey', name: :answer_survey, class: 'send-survey-submit'
-      end
-    else
-      content_tag(:p, 'No surveys created')
-    end
-  end
-
   def render_answers_for(question)
     case question.field_type.to_sym
     when :text_field
