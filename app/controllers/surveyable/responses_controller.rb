@@ -1,7 +1,7 @@
 module Surveyable
   class ResponsesController < ::Surveyable::ApplicationController
     def create
-      @response = Response.new(response_attributes)
+      @response = Response.new(params[:surveyable_response])
 
       if @response.save
         flash[:notice] = "Response was succesfully created"
@@ -21,12 +21,6 @@ module Surveyable
       @response.destroy
 
       redirect_to :back
-    end
-
-    private
-
-    def response_attributes
-      params.require(:surveyable_response).permit(:survey_id, :respondable_id, :respondable_type, :respondent_type, :respondent_id)
     end
   end
 end

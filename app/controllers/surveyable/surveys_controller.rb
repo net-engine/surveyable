@@ -20,7 +20,7 @@ module Surveyable
     end
 
     def create
-      @survey = Survey.new(survey_attributes)
+      @survey = Survey.new(params[:surveyable_survey])
 
       if @survey.save
         redirect_to surveyable_surveys_path, notice: 'Survey was successfully created.'
@@ -37,7 +37,7 @@ module Surveyable
     def update
       redirect_to surveyable_surveys_path, warning: 'Cannot update this survey' and return if @survey.has_been_answered?
 
-      if @survey.update_attributes(survey_attributes)
+      if @survey.update_attributes(params[:surveyable_survey])
         redirect_to surveyable_surveys_path, notice: 'Survey was successfully updated.'
       else
         flash.now[:error] = @survey.errors.full_messages.join(', ')
@@ -55,16 +55,6 @@ module Surveyable
 
     def fetch_survey
       @survey = Survey.find(params[:id])
-    end
-
-    def survey_attributes
-      answers_attributes = [:position, :content, :score, :id, :_destroy]
-      questions_attributes = [:position, :content, :field_type, :required, :id,
-                              :_destroy, :minimum, :maximum,
-                              answers_attributes: answers_attributes]
-
-      params.require(:surveyable_survey).
-        permit(:title, :enabled, questions_attributes: questions_attributes)
     end
   end
 end
