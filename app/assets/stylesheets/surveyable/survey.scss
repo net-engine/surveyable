@@ -123,6 +123,9 @@ $radius: 3px;
 
 .question_field.rank_field {
   .rank_field_min, .rank_field_max {
-    display: block;
+    display: inline-block;
+    width: 25%;
+    min-width: 8em;
+    max-width: 16em;
   }
 }
