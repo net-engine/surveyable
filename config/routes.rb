@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   namespace :surveyable do
-    resources :surveys, except: :show
+    resources :surveys
     resources :responses
   end
 

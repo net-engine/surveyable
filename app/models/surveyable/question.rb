@@ -19,6 +19,8 @@ module Surveyable
     validates :minimum, :maximum, presence: true, if: proc { |question| question.field_type == :rank_field }
     validate :maximum_must_be_greater_than_minimum, if: proc { |question| question.field_type == :rank_field }
 
+    scope :reportable_questions, where(field_type: ["select_field", "radio_button_field", "check_box_field"])
+
     accepts_nested_attributes_for :answers, allow_destroy: true, reject_if: lambda { |a| a[:content].blank? }
 
     private
