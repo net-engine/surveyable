@@ -12,4 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require d3_v3
 //= require ./survey
+//= require ./report_handler
