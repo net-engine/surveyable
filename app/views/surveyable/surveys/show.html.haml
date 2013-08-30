@@ -1,0 +1,9 @@
+%h2= @survey.title
+
+- @survey.questions.each do |question|
+  .question
+    %h4= question.content
+    - if question.reportable_question?
+      = hidden_field_tag "reportable_question", question.id, id: nil, class: "reportable_question"
+    - else
+      = "This question type does not support report features"

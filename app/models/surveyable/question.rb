@@ -37,6 +37,10 @@ module Surveyable
       return "N/A"
     end
 
+    def reportable_question?
+      ["select_field", "radio_button_field", "check_box_field"].include? field_type
+    end
+
     private
 
     def total_occurrences_in_distribution(distribution)
@@ -44,7 +48,7 @@ module Surveyable
     end
 
     def compute_distribution
-      return "N/A" unless ["select_field", "radio_button_field", "check_box_field"].include? field_type
+      return "N/A" unless reportable_question?
 
       ras = ResponseAnswer.where(question_id: self.id)
 
