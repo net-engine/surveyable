@@ -22,47 +22,75 @@ module Surveyable
       end
     end
 
+    describe "#reportable?" do
+      context "when field type is select_field" do
+        it "returns true" do
+          Surveyable::Question.new(field_type: 'select_field').should be_reportable
+        end
+      end
+
+      context "when field type is radio_button_field" do
+        it "returns true" do
+          Surveyable::Question.new(field_type: 'radio_button_field').should be_reportable
+        end
+      end
+
+      context "when field type is check_box_field" do
+        it "returns true" do
+          Surveyable::Question.new(field_type: 'check_box_field').should be_reportable
+        end
+      end
+
+      context "when field type is text field" do
+        it "returns false" do
+          Surveyable::Question.new(field_type: 'text_field').should_not be_reportable
+        end
+      end
+
+      context "when field type is text area field" do
+        it "returns false" do
+          Surveyable::Question.new(field_type: 'text_area_field').should_not be_reportable
+        end
+      end
+    end
+
     describe "#reports" do
       context "when the question is not a reportable question" do
-        let!(:question){ create(:question) }
-        it "should return a 'N/A' string" do
-          question.reportable_question?.should == false
+        let(:question) { create(:question, field_type: :text_field) }
+
+        it "returns a 'N/A' string" do
           question.reports.should == 'N/A'
         end
       end
 
-      context "when the question is reportable but there was no response provided for that survey" do
-        let!(:survey){ create(:survey_with_questions_and_answers, questions_count: 2) }
-        it "should return an empty array" do
-          question = survey.questions.first
-          question.reportable_question?.should == true
-          ResponseAnswer.where(question_id: question.id).should be_empty
-          question.reports.should == []
-        end
-      end
+      context "when the question is reportable" do
+        context "when no answers were provided yet" do
+          let(:survey) { create(:survey_with_questions_and_answers, questions_count: 2) }
+          let(:question) { survey.questions.first }
 
-      context "when the question is reportable and where there was a provided response" do
-        let!(:survey)   { create(:survey_with_questions_and_answers, questions_count: 1) }
-        let!(:response) { create(:response, survey: survey) }
-        let!(:ra1)      { { response: response, question: survey.questions.first, answer: survey.questions.first.answers.first } }
-        let!(:ra2)      { { response: response, question: survey.questions.first, answer: survey.questions.first.answers[1] } }
-        let!(:ra3)      { { response: response, question: survey.questions.first, answer: survey.questions.first.answers[1] } }
-
-        before do
-          response.response_answers.create(ra1)
-          response.response_answers.create(ra2)
-          response.response_answers.create(ra3)
+          it "returns an empty array" do
+            question.reports.should == []
+          end
         end
 
-        it "should return the correct result array" do
-          question = survey.questions.first
-          question.reportable_question?.should == true
-          ResponseAnswer.where(question_id: question.id).should_not be_empty
-          question.reports.should == [
-            # 2/3
-            {:text=>survey.questions.first.answers[1].content, :occurrence=>2, :percentage=>66.67, :id=>survey.questions.first.answers[1].id},
-            # 1/3
-            {:text=>survey.questions.first.answers[0].content, :occurrence=>1, :percentage=>33.33, :id=>survey.questions.first.answers[0].id}]
+        context "when there was a provided response" do
+          let!(:survey)   { create(:survey_with_questions_and_answers, questions_count: 1) }
+          let!(:response) { create(:response, survey: survey) }
+          let!(:question) { survey.questions.first }
+          let!(:answer1) { question.answers.first }
+          let!(:answer2) { question.answers.second }
+          let!(:response_answer1) { response.response_answers.create(question: question, answer: answer1) }
+          let!(:response_answer2) { response.response_answers.create(question: question, answer: answer2) }
+          let!(:response_answer3) { response.response_answers.create(question: question, answer: answer2) }
+
+          it "returns the correct result array" do
+            expected = [
+              { text: answer2.content, occurrence: 2, percentage: 66.67, id: answer2.id },
+              { text: answer1.content, occurrence: 1, percentage: 33.33, id: answer1.id }
+            ]
+
+            question.reports.should == expected
+          end
         end
       end
     end

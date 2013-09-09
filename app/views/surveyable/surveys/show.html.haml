@@ -3,7 +3,7 @@
 - @survey.questions.each do |question|
   .question
     %h4= question.content
-    - if question.reportable_question?
+    - if question.reportable?
       = hidden_field_tag "reportable_question", question.id, id: nil, class: "reportable_question"
       .pie-chart
     - else
