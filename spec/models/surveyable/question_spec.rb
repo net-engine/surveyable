@@ -6,6 +6,7 @@ module Surveyable
     it { should validate_presence_of(:field_type) }
     it { should belong_to(:survey) }
     it { should have_many(:answers).dependent(:destroy) }
+    it { should have_many(:response_answers) }
     it { should accept_nested_attributes_for(:answers).allow_destroy(true) }
 
     describe "validations" do
@@ -22,76 +23,13 @@ module Surveyable
       end
     end
 
-    describe "#reportable?" do
-      context "when field type is select_field" do
-        it "returns true" do
-          Surveyable::Question.new(field_type: 'select_field').should be_reportable
-        end
-      end
-
-      context "when field type is radio_button_field" do
-        it "returns true" do
-          Surveyable::Question.new(field_type: 'radio_button_field').should be_reportable
-        end
-      end
-
-      context "when field type is check_box_field" do
-        it "returns true" do
-          Surveyable::Question.new(field_type: 'check_box_field').should be_reportable
-        end
-      end
-
-      context "when field type is text field" do
-        it "returns false" do
-          Surveyable::Question.new(field_type: 'text_field').should_not be_reportable
-        end
-      end
-
-      context "when field type is text area field" do
-        it "returns false" do
-          Surveyable::Question.new(field_type: 'text_area_field').should_not be_reportable
-        end
-      end
-    end
-
     describe "#reports" do
-      context "when the question is not a reportable question" do
-        let(:question) { create(:question, field_type: :text_field) }
+      let!(:question) { create(:question, field_type: :text_field) }
 
-        it "returns a 'N/A' string" do
-          question.reports.should == 'N/A'
-        end
-      end
+      it "delegates to Report class" do
+        Surveyable::Report.should_receive(:build).with(question)
 
-      context "when the question is reportable" do
-        context "when no answers were provided yet" do
-          let(:survey) { create(:survey_with_questions_and_answers, questions_count: 2) }
-          let(:question) { survey.questions.first }
-
-          it "returns an empty array" do
-            question.reports.should == []
-          end
-        end
-
-        context "when there was a provided response" do
-          let!(:survey)   { create(:survey_with_questions_and_answers, questions_count: 1) }
-          let!(:response) { create(:response, survey: survey) }
-          let!(:question) { survey.questions.first }
-          let!(:answer1) { question.answers.first }
-          let!(:answer2) { question.answers.second }
-          let!(:response_answer1) { response.response_answers.create(question: question, answer: answer1) }
-          let!(:response_answer2) { response.response_answers.create(question: question, answer: answer2) }
-          let!(:response_answer3) { response.response_answers.create(question: question, answer: answer2) }
-
-          it "returns the correct result array" do
-            expected = [
-              { text: answer2.content, occurrence: 2, percentage: 66.67, id: answer2.id },
-              { text: answer1.content, occurrence: 1, percentage: 33.33, id: answer1.id }
-            ]
-
-            question.reports.should == expected
-          end
-        end
+        question.reports
       end
     end
   end
