@@ -24,7 +24,7 @@ module Surveyable
     accepts_nested_attributes_for :answers, allow_destroy: true, reject_if: lambda { |a| a[:content].blank? }
 
     def reports
-      Surveyable::Report.build(self)
+      Surveyable::Report.build(question: self)
     end
 
     private

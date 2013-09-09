@@ -27,7 +27,7 @@ module Surveyable
       let!(:question) { create(:question, field_type: :text_field) }
 
       it "delegates to Report class" do
-        Surveyable::Report.should_receive(:build).with(question)
+        Surveyable::Report.should_receive(:build).with(question: question)
 
         question.reports
       end
