@@ -5,6 +5,8 @@
     %h4= question.content
     - if question.reportable?
       = hidden_field_tag "reportable_question", question.id, id: nil, class: "reportable_question"
-      .pie-chart
+    .chart
+
+
     - else
       = "This question type does not support report features"
