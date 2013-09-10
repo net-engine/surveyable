@@ -45,11 +45,13 @@ module Surveyable
     end
 
     def count_occurences
-      question.response_answers.inject({}) do |hash, response_answer|
-        hash[response_answer.free_content] ||= 0
-        hash[response_answer.free_content] += 1
-        hash
+      possible_results = Hash[(question.minimum..question.maximum).map { |i| [i.to_s, 0] }]
+
+      question.response_answers.each do |response_answer|
+        possible_results[response_answer.free_content] += 1
       end
+
+      possible_results
     end
   end
 end

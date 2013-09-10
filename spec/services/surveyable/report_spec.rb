@@ -40,8 +40,16 @@ describe Surveyable::Report do
         expected = {
           field_type: 'rank_field',
           answers: [
+            { answer_occurrence: 0, answer_text: '1' },
             { answer_occurrence: 2, answer_text: '2' },
-            { answer_occurrence: 1, answer_text: '8' }
+            { answer_occurrence: 0, answer_text: '3' },
+            { answer_occurrence: 0, answer_text: '4' },
+            { answer_occurrence: 0, answer_text: '5' },
+            { answer_occurrence: 0, answer_text: '6' },
+            { answer_occurrence: 0, answer_text: '7' },
+            { answer_occurrence: 1, answer_text: '8' },
+            { answer_occurrence: 0, answer_text: '9' },
+            { answer_occurrence: 0, answer_text: '10' }
           ]
         }
 
