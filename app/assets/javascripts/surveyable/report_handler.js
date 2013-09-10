@@ -1,4 +1,4 @@
-var Surveyable = function(){
+var SurveyableMaster = function(){
 
   var self = this, drawGraph, barRequired, lineRequired;
 
@@ -51,10 +51,26 @@ var Surveyable = function(){
     drawGraph("Donut", outData, $element, self.radioButtonFieldGraphOptions);
   }
 
+  this.report = function(data, $element) {
+    if (data.field_type == "check_box_field") {
+      self.checkBoxFieldGraph(data.answers, $element);
+
+    } else if (data.field_type == "rank_field") {
+      self.rankFieldGraph(data.answers, $element);
+    
+    } else if (data.field_type == "radio_button_field") {
+      self.radioButtonFieldGraph(data.answers, $element);
+    
+    } else if (data.field_type == "select_field") {
+      self.selectFieldGraph(data.answers, $element);
+    
+    }
+  }
+
   return self;
 }
 
-var Surveyable = Surveyable();
+var Surveyable = SurveyableMaster();
 
 $(document).ready(function(){
   var $reportableQuestion = $(".reportable_question");
@@ -67,19 +83,7 @@ $(document).ready(function(){
         url: "/surveyable/questions/"+$(this).val()+"/reports",
         dataType: "json",
         success: function(results){
-          if (results.field_type == "check_box_field") {
-            Surveyable.checkBoxFieldGraph(results.answers, $element);
-
-          } else if (results.field_type == "rank_field") {
-            Surveyable.rankFieldGraph(results.answers, $element);
-          
-          } else if (results.field_type == "radio_button_field") {
-            Surveyable.radioButtonFieldGraph(results.answers, $element);
-          
-          } else if (results.field_type == "select_field") {
-            Surveyable.selectFieldGraph(results.answers, $element);
-          
-          }
+          Surveyable.report(results, $element);
         }
       });
     });
