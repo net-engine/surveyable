@@ -25,6 +25,8 @@ module Surveyable
         set_occurences_through_answers
       when "rank_field"
         set_occurences_through_response_answers
+      else
+        []
       end
     end
 

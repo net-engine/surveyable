@@ -27,6 +27,20 @@ describe Surveyable::Report do
       end
     end
 
+    context "when question is text field" do
+      let!(:survey) { create(:survey) }
+      let!(:question) { create(:question, field_type: 'text_field', survey: survey) }
+
+      it "returns hash" do
+        expected = {
+          field_type: 'text_field',
+          answers: []
+        }
+
+        Surveyable::Report.build(question: question).should == expected
+      end
+    end
+
     context "when question is rank field" do
       let!(:survey) { create(:survey) }
       let!(:question) { create(:question, field_type: 'rank_field', minimum: 1, maximum: 10, survey: survey) }
