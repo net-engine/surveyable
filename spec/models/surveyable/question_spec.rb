@@ -32,5 +32,37 @@ module Surveyable
         question.reports
       end
     end
+
+    describe "#reportable?" do
+      context "when field type is select_field" do
+        it "returns true" do
+          Surveyable::Question.new(field_type: 'select_field').should be_reportable
+        end
+      end
+
+      context "when field type is radio_button_field" do
+        it "returns true" do
+          Surveyable::Question.new(field_type: 'radio_button_field').should be_reportable
+        end
+      end
+
+      context "when field type is check_box_field" do
+        it "returns true" do
+          Surveyable::Question.new(field_type: 'check_box_field').should be_reportable
+        end
+      end
+
+      context "when field type is text field" do
+        it "returns false" do
+          Surveyable::Question.new(field_type: 'text_field').should_not be_reportable
+        end
+      end
+
+      context "when field type is text area field" do
+        it "returns false" do
+          Surveyable::Question.new(field_type: 'text_area_field').should_not be_reportable
+        end
+      end
+    end
   end
 end
