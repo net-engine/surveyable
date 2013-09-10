@@ -1,22 +1,22 @@
 var Surveyable = function(){
 
-  var self = this, drawGraph, type, data;
+  var self = this, drawGraph, barRequired, lineRequired;
 
-  var barRequired = {
+  barRequired = {
     xkey: 'answer_text',
     ykeys: ['answer_occurrence'],
     labels: ['Answer Occurrence'],
     xLabelAngle: 35
   }
 
-  var lineRequired = {
+  lineRequired = {
     xkey: 'answer_text',
     ykeys: ['answer_occurrence'],
     labels: ['Answer Occurrence'],
     parseTime: false
   }
 
-  var drawGraph = function(type, data, $element, options){
+  drawGraph = function(type, data, $element, options){
     var defaults = {
       element: $element,
       data: data
@@ -26,29 +26,29 @@ var Surveyable = function(){
   }
 
   this.checkBoxFieldGraph = function(data, $element){
-    type = "Bar";
-    var inOptions = self.checkBoxFieldGraphOptions;
-    var outOptions = $.extend(inOptions, barRequired)
+    var outOptions = $.extend(self.checkBoxFieldGraphOptions, barRequired)
 
-    drawGraph(type, data, $element, outOptions);
+    drawGraph("Bar", data, $element, outOptions);
+  }
+
+  this.selectFieldGraph = function(data, $element){
+    var outOptions = $.extend(self.selectFieldGraphOptions, barRequired)
+
+    drawGraph("Bar", data, $element, outOptions);
   }
   
   this.rankFieldGraph = function(data, $element){
-    type = "Line";
-    var inOptions = self.rankFieldGraphOptions;
-    var outOptions = $.extend(inOptions, lineRequired)
+    var outOptions = $.extend(self.rankFieldGraphOptions, lineRequired)
 
-    drawGraph(type, data, $element, outOptions);
+    drawGraph("Line", data, $element, outOptions);
   }
   
   this.radioButtonFieldGraph = function(data, $element){
-    type = "Donut";
-    var outOptions = self.radioButtonFieldGraphOptions;
     var outData = $.map(data, function(answer, index){
       return { value: answer.answer_occurrence, label: answer.answer_text };
     });
     
-    drawGraph(type, outData, $element, outOptions);
+    drawGraph("Donut", outData, $element, self.radioButtonFieldGraphOptions);
   }
 
   return self;
@@ -75,6 +75,9 @@ $(document).ready(function(){
           
           } else if (results.field_type == "radio_button_field") {
             Surveyable.radioButtonFieldGraph(results.answers, $element);
+          
+          } else if (results.field_type == "select_field") {
+            Surveyable.selectFieldGraph(results.answers, $element);
           
           }
         }
