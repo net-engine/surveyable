@@ -12,4 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require morris
 //= require ./survey
+//= require ./report_handler

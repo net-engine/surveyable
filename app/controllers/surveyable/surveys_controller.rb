@@ -10,6 +10,9 @@ module Surveyable
       @surveys = Survey.where(enabled: true)
     end
 
+    def show
+    end
+
     def new
       @survey = Survey.new
 
