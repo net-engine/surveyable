@@ -1,11 +1,12 @@
 var Surveyable = function(){
 
-  var self = this, drawGraph, type, options, data;
+  var self = this, drawGraph, type, data;
 
   var barRequired = {
     xkey: 'answer_text',
     ykeys: ['answer_occurrence'],
-    labels: ['Answer Occurrence']
+    labels: ['Answer Occurrence'],
+    xLabelAngle: 35
   }
 
   var lineRequired = {
@@ -33,7 +34,6 @@ var Surveyable = function(){
   }
   
   this.rankFieldGraph = function(data, $element){
-    console.log(data);
     type = "Line";
     var inOptions = self.rankFieldGraphOptions;
     var outOptions = $.extend(inOptions, lineRequired)
@@ -67,8 +67,6 @@ $(document).ready(function(){
         url: "/surveyable/questions/"+$(this).val()+"/reports",
         dataType: "json",
         success: function(results){
-          console.log(results);
-
           if (results.field_type == "check_box_field") {
             Surveyable.checkBoxFieldGraph(results.answers, $element);
 
