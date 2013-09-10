@@ -12,7 +12,11 @@ module Surveyable
       ['Rank Field', :rank_field]
     ]
 
+    REPORTABLE_TYPES = ["select_field", "radio_button_field", "check_box_field", "rank_field"]
+
     has_many :answers, dependent: :destroy, order: :position
+    has_many :response_answers
+
     belongs_to :survey
 
     validates :content, :field_type, presence: true
@@ -20,6 +24,14 @@ module Surveyable
     validate :maximum_must_be_greater_than_minimum, if: proc { |question| question.field_type == :rank_field }
 
     accepts_nested_attributes_for :answers, allow_destroy: true, reject_if: lambda { |a| a[:content].blank? }
+
+    def reports
+      Surveyable::Report.build(question: self)
+    end
+
+    def reportable?
+      REPORTABLE_TYPES.include?(field_type)
+    end
 
     private
 
