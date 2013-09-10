@@ -1,7 +1,8 @@
 %h2= @survey.title
 
 - @survey.questions.each do |question|
-  .question
-    %h4= question.content
-    = render "surveyable/surveys/reports/#{question.field_type}", question: question
+  - if question.reportable?
+    .question
+      %h4= question.content
+      = render "surveyable/surveys/reports/#{question.field_type}", question: question
 

@@ -2,10 +2,17 @@ var Surveyable = function(){
 
   var self = this, drawGraph, type, options, data;
 
-  var barLineAndAreaRequired = {
+  var barRequired = {
     xkey: 'answer_text',
     ykeys: ['answer_occurrence'],
     labels: ['Answer Occurrence']
+  }
+
+  var lineRequired = {
+    xkey: 'answer_text',
+    ykeys: ['answer_occurrence'],
+    labels: ['Answer Occurrence'],
+    parseTime: false
   }
 
   var drawGraph = function(type, data, $element, options){
@@ -15,24 +22,21 @@ var Surveyable = function(){
     }
     var finalOptions = $.extend(defaults, options);
     var graph = new Morris[type](finalOptions);
-
-    // $(window).resize(function() {
-    //   window.setTimeout(graph.redraw, 500);
-    // });
   }
 
   this.checkBoxFieldGraph = function(data, $element){
     type = "Bar";
     var inOptions = self.checkBoxFieldGraphOptions;
-    var outOptions = $.extend(inOptions, barLineAndAreaRequired)
+    var outOptions = $.extend(inOptions, barRequired)
 
     drawGraph(type, data, $element, outOptions);
   }
   
   this.rankFieldGraph = function(data, $element){
+    console.log(data);
     type = "Line";
     var inOptions = self.rankFieldGraphOptions;
-    var outOptions = $.extend(inOptions, barLineAndAreaRequired)
+    var outOptions = $.extend(inOptions, lineRequired)
 
     drawGraph(type, data, $element, outOptions);
   }
@@ -63,6 +67,8 @@ $(document).ready(function(){
         url: "/surveyable/questions/"+$(this).val()+"/reports",
         dataType: "json",
         success: function(results){
+          console.log(results);
+
           if (results.field_type == "check_box_field") {
             Surveyable.checkBoxFieldGraph(results.answers, $element);
 
