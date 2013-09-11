@@ -23,7 +23,7 @@
           %td= survey.responses.completed.count
           %td
             = link_to 'Reports', surveyable_survey_path(survey), class: 'btn'
-            = link_to 'Edit', edit_surveyable_survey_path(survey), class: 'btn'
+            = link_to('Edit', edit_surveyable_survey_path(survey), class: 'btn') unless survey.has_been_answered?
             = link_to 'Delete', surveyable_survey_path(survey), method: :delete, confirm: 'Are you sure you want to delete this survey?', class: 'btn btn-danger'
 
 - else
