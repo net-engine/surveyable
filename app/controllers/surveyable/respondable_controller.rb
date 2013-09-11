@@ -2,6 +2,12 @@ module Surveyable
   class RespondableController < ::Surveyable::ApplicationController
     layout 'respondable'
 
+    def index
+      @respondables = Response.all.map do |response|
+        debugger
+      end
+    end
+
     def show
       @response = Response.where(access_token: params[:access_token]).first
       @survey   = @response.completed? ? nil : @response.survey

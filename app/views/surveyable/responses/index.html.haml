@@ -1,0 +1,19 @@
+- @responses.group_by(&:respondable).each do |user, responses|
+  %h1
+    = user.to_s
+
+    %table 
+      %thead
+        %tr
+          %th Survey
+          %th Created at
+          %th Responded at
+
+      %tbody
+        - responses.each do |response|
+          %tr
+            %td= response.survey.title
+            %td= response.created_at
+            %td= response.completed_at
+
+
