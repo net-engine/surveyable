@@ -2,18 +2,20 @@
   %h1
     = user.to_s
 
-  %table 
+  %table
     %thead
       %tr
         %th Survey
         %th Created at
         %th Responded at
+        %th Respondent
 
     %tbody
       - responses.each do |response|
         %tr
-          %td= response.survey.title
+          %td= link_to response, "#{response.survey.title} - response.respondable"
           %td= response.created_at
           %td= response.completed_at
+          %td= response.respondent
 
 
