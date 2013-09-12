@@ -74,7 +74,6 @@ $radius: 3px;
     line-height: 2em;
   }
 
-  input { width: 70%; }
 }
 
 .questions_list {
@@ -110,6 +109,8 @@ $radius: 3px;
     background: #fafafa;
     border-color: #ccc;
   }
+
+  .fields { max-width: 600px; }
 
   &.text_field, &.text_area_field, &.date_field, &.rank_field {
     .answers_list { display: none; }
