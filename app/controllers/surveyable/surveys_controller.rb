@@ -7,7 +7,7 @@ module Surveyable
     end
 
     def index
-      @surveys = Survey.where(enabled: true)
+      @surveys = Survey.all
     end
 
     def show

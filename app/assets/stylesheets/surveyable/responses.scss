@@ -2,10 +2,29 @@
 .responses {
 
   .response-block {
+    position: relative;
     margin: 0 0 1em;
-  } 
+  }
 
   .answer {
     margin: 0 0 .25em;
+  }
+
+  .response-score {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    color: red;
+    font-weight: 500;
+    line-height: 1.5em;
+
+    sup { vertical-align: super; }
+    sub { vertical-align: sub; }
+
+    .score-divider {
+      display: inline-block;
+      font-weight: 100;
+      -webkit-transform: scale(1.5, 2);
+    }
   }
 }

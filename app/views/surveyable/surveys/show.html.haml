@@ -1,8 +1,9 @@
 %h2= @survey.title
 
 - @survey.questions.each do |question|
-  - if question.reportable?
-    .question
-      %h4= question.content
-      = render "surveyable/surveys/reports/#{question.field_type}", question: question
+  .question
+    %h4= question.content
+    = question.to_yaml
 
+    - if question.reportable?
+      = render "surveyable/surveys/reports/#{question.field_type}", question: question

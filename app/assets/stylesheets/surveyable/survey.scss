@@ -1,5 +1,34 @@
 @import 'compass';
 
+// Index
+
+.survey-completed-count:hover {
+  .survey-completed-details { display: block; }
+}
+
+.survey-completed-details {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  background: rgba(0,0,0,.65);
+  color: white;
+  text-shadow: none;
+  padding: .25em .5em;
+  display: none;
+  max-height: 100px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.completed-survey-response {
+  white-space: nowrap;
+  margin: 0 0 .25em;
+}
+
+
+// Form
+
+
 $radius: 3px;
 
 .remove_link {
@@ -48,6 +77,12 @@ $radius: 3px;
   input { width: 70%; }
 }
 
+.questions_list {
+  counter-reset: section;
+
+  &.dragging .question_field:before { display: none; }
+}
+
 .question_field {
   position: relative;
   background: white;
@@ -56,6 +91,20 @@ $radius: 3px;
   padding-left: 3em;
   margin: 0 0 1em;
   @include border-radius($radius);
+
+  &:before {
+    counter-increment: section;
+    content: counters(section, ".") " ";
+    position: absolute;
+    top: 0.5em;
+    left: 0.5em;
+    z-index: 10;
+    width: 1em;
+    text-align: center;
+    line-height: 1em;
+    font-weight: bold;
+    pointer-events: none;
+  }
 
   &:nth-of-type(even) {
     background: #fafafa;
@@ -83,6 +132,15 @@ $radius: 3px;
   .question_field_handle {
     border-right: 1px solid #ddd;
     bottom: 0;
+
+    &:before {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 2em;
+      text-align: center;
+      line-height: 2em;
+    }
   }
 
 }
@@ -130,8 +188,22 @@ $radius: 3px;
   }
 }
 
-.pie-chart{
+.pie-chart {
   border-style: solid;
   border-color: #D4D6D8;
   border-width: 2px;
+}
+
+.question .graph {
+  height: 200px;
+}
+
+.survey-stats {
+  dt, dd { display: inline-block; }
+  dt { margin: 0 .5em 0 .75em; }
+
+  .survey-stats dd {
+    font-size: 1.25em;
+    font-weight: bold;
+  }
 }

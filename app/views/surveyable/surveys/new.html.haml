@@ -5,4 +5,10 @@
   %header
     %h2 New Survey
 
+    %dl.survey-stats{ style: "display: none;" }
+      %dt Questions
+      %dd#no_questions
+      %dt Total score
+      %dd#total_score
+
   %article.body= render 'form'

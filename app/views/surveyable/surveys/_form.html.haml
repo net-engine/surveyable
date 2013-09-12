@@ -7,13 +7,18 @@
       %li#survey
         = form.label :title, 'Survey name'
         = form.text_field :title
+
+      %li
+        = form.check_box :enabled
+        = form.label :enabled, 'Enabled?'
+
       %li#questions
         %label Questions
-        
+
         %ol.questions_list
           = form.fields_for :questions do |form_question|
             = render 'question_fields', form: form_question
-        
+
         = link_to_add_fields 'Add question', form, :questions
 
         .clearfix
