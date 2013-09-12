@@ -22,12 +22,7 @@ module Surveyable
     end
 
     def score
-      scores = grouped_scored_ra.map do |_, values|
-        # Averaging all the scores for a given question
-        score = values.sum.to_f / values.size
-      end
-      # Averaging all the scores for all questions
-      scores.any? ? ((scores.sum.to_f / scores.size).round) : "No Score"
+      response_answers.map(&:score).sum rescue 0
     end
 
     private
@@ -43,7 +38,7 @@ module Surveyable
     # we don't want to add two scores of two answers for a same question (checkboxes case).
     # Hence we group them by question, to average them later
     def grouped_scored_ra
-      scored_ra     = response_answers.select{ |ra| ra.answer && ra.answer.score }
+      scored_ra     = 
       g_scored_ra   = {}
       scored_ra.each do |ra|
         g_scored_ra[ra.question.id] = [] unless g_scored_ra[ra.question.id]

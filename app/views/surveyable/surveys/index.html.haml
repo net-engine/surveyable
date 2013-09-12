@@ -13,6 +13,7 @@
         %th # of questions
         %th # of invitations
         %th # of responses
+        %th Average Score
         %th
     %tbody
       - @surveys.each do |survey|
@@ -21,6 +22,9 @@
           %td= survey.questions.count
           %td= survey.responses.count
           %td= survey.responses.completed.count
+          %td
+            = "#{ survey.average_score } / #{ survey.potential_score }"
+            = "#{ 100 / survey.potential_score * survey.average_score }%" unless survey.potential_score == 0
           %td
             = link_to 'Reports', surveyable_survey_path(survey), class: 'btn'
             = link_to('Edit', edit_surveyable_survey_path(survey), class: 'btn') unless survey.has_been_answered?

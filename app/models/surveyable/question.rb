@@ -33,6 +33,19 @@ module Surveyable
       REPORTABLE_TYPES.include?(field_type)
     end
 
+    def potential_score
+      sum_of_scores_types  = [:text_field, :text_area_field, :check_box_field]
+      hightest_score_types = [:select_field, :radio_button_field]
+      
+      if sum_of_scores_types.include?(field_type)
+        answers.pluck(:score).inject(:+)
+      
+      else 
+        answers.pluck(:score).max
+
+      end
+    end
+
     private
 
     def maximum_must_be_greater_than_minimum

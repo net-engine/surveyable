@@ -1,13 +1,16 @@
 module Surveyable
   class Survey < ActiveRecord::Base
     has_many :questions, dependent: :destroy, order: :position
+    has_many :answers, through: :questions
     has_many :responses, dependent: :destroy
+    has_many :response_answers, through: :responses
 
     validates :title, presence: true
 
     scope :enabled, -> { where(enabled: true) }
 
     accepts_nested_attributes_for :questions, allow_destroy: true, reject_if: lambda { |q| q[:content].blank? }
+
 
     def enable!
       update_attribute(:enabled, true)
@@ -19,6 +22,14 @@ module Surveyable
 
     def has_been_answered?
       self.responses.where('completed_at IS NOT NULL').count > 0
+    end
+
+    def potential_score
+      self.answers.pluck(:score).inject(:+)
+    end
+
+    def average_score
+      self.responses.map(&:score).sum / self.responses.count
     end
   end
 end

@@ -6,5 +6,9 @@ module Surveyable
 
     validates :response, presence: true
     validates :question, presence: true
+
+    def score
+      answer.score
+    end
   end
 end
