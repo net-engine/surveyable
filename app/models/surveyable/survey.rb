@@ -25,11 +25,11 @@ module Surveyable
     end
 
     def potential_score
-      self.answers.pluck(:score).inject(:+)
+      self.questions.map(&:potential_score).compact.sum
     end
 
     def average_score
-      self.responses.map(&:score).sum / self.responses.count
+      self.responses.map(&:score).sum / self.responses.count rescue 0
     end
   end
 end

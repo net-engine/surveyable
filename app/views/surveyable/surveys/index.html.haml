@@ -24,7 +24,7 @@
           %td= survey.responses.completed.count
           %td
             = "#{ survey.average_score } / #{ survey.potential_score }"
-            = "#{ 100 / survey.potential_score * survey.average_score }%" unless survey.potential_score == 0
+            = "#{ 100 / survey.potential_score * survey.average_score }%" unless survey.potential_score == 0 or survey.average_score == 0
           %td
             = link_to 'Reports', surveyable_survey_path(survey), class: 'btn'
             = link_to('Edit', edit_surveyable_survey_path(survey), class: 'btn') unless survey.has_been_answered?
