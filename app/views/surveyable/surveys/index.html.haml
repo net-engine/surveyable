@@ -10,6 +10,7 @@
     %thead
       %tr
         %th Name
+        %th Enabled
         %th # of questions
         %th # of invitations
         %th # of responses
@@ -17,10 +18,28 @@
     %tbody
       - @surveys.each do |survey|
         %tr
-          %td= survey.title
+          %td= link_to survey.title, surveyable_survey_path(survey)
+          %td
+            - if survey.enabled === true
+              .icon-checkmark.icon-only= "&#x2713;".html_safe
+
           %td= survey.questions.count
           %td= survey.responses.count
-          %td= survey.responses.completed.count
+          %td
+            - if survey.responses.completed.any?
+              .survey-completed-count.icon-info
+                = survey.responses.completed.count
+
+                %ul.survey-completed-details
+                  - survey.responses.completed.each do |response|
+                    %li.completed-survey-response
+                      %strong.survey-respondable= response.respondable.to_s
+                      = '/'
+                      %span.survey-respondent= response.respondent.to_s
+
+            - else
+              = survey.responses.completed.count
+
           %td
             = link_to 'Reports', surveyable_survey_path(survey), class: 'btn'
             = link_to('Edit', edit_surveyable_survey_path(survey), class: 'btn') unless survey.has_been_answered?

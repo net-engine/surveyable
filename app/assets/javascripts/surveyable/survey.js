@@ -43,6 +43,12 @@
       handle: '.handle',
       axis: 'y',
       tolerance: "pointer",
+      start: function(event, ui) {
+        $(this).addClass('dragging');
+      },
+      stop: function(event, ui) {
+        $(this).removeClass('dragging');
+      },
       update: function(){
         reorderQuestionPosition();
       }
