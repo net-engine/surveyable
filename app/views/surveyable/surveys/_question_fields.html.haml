@@ -20,12 +20,9 @@
         = form.number_field :minimum, min: 0, max: 100, class: 'rank_field_min', placeholder: 'Minimum'
         = form.number_field :maximum, min: 0, max: 100, class: 'rank_field_max', placeholder: 'Maximum'
 
-      .clearfix
-
     %fieldset.answers_list
       = form.fields_for :answers do |form_answer|
         = render 'answer_fields', form: form_answer
-      .clearfix
 
       = link_to_add_fields 'Add answer', form, :answers
 

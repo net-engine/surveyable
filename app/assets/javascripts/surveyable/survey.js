@@ -2,23 +2,45 @@
   var add_fields = function(link, association, content) {
     var new_id = new Date().getTime();
     var regexp = new RegExp("new_" + association, "g");
-    $(link).prev().append(content.replace(regexp, new_id));
+    $(content.replace(regexp, new_id)).insertBefore(link);
     reorderQuestionPosition();
+    autoAppendAnswer();
   };
 
   var remove_fields = function(link) {
     $(link).prev("input[type=hidden]").val("1");
-    $(link).closest(".togglable").hide();
+    $(link).closest(".togglable").remove();
     reorderQuestionPosition();
+    autoAppendAnswer();
   };
+
+  var resetAnswers = function($field){
+    $("input.answer-content", $field).each(function(){ $(this).val("") });
+  }
+
+  var autoAppendAnswer = function(){
+    $("input.answer-content").off("keyup");
+    $("input.answer-content").on("keyup", function(){
+      var $parent = $(this).closest(".question_field");
+      if ($(this)[0] == $("input.answer-content", $parent).last()[0]) {
+        $parent.find(".add-answers-link").click();
+      }
+    });
+  }
 
   var bindQuestionTypeChanges = function(){
     $(document).on('change', '.question_field_type_select', function(e) {
       var $this = $(this);
       var $field = $this.closest('.question_field');
-
+      var field_type = $this.find('option:selected').val()
+      var reset_types = ["text_area_field", "text_field", "date_field"]
+      
+      if ($.inArray( field_type, reset_types) != -1 ) {
+        resetAnswers($field);
+      }
+      
       $field.removeAttr('class');
-      $field.addClass("question_field togglable " + $this.find('option:selected').val());
+      $field.addClass("question_field togglable " + field_type);
     });
   };
 
@@ -74,6 +96,8 @@
 
       makeMovableQuestions();
       makeMovableAnswers();
+
+      autoAppendAnswer();
     }
   });
 

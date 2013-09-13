@@ -1,6 +1,6 @@
 %li.togglable.anwser_field
   .handle.answer_field_handle
-  = form.text_field :content, placeholder: 'Answer'
+  = form.text_field :content, placeholder: 'Answer', class: "answer-content"
   = form.hidden_field :position, class: "answer-position"
   = form.number_field :score, min: 0, max: 100, class: 'score', placeholder: 'Score'
   = link_to_remove_fields 'x', form

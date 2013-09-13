@@ -62,10 +62,6 @@ $radius: 3px;
     border-color: #ccc;
   }
 
-  &.text_field, &.text_area_field, &.date_field, &.rank_field {
-    .answers_list { display: none; }
-  }
-
   .rank_field_min, .rank_field_max {
     display: none;
   }
@@ -118,6 +114,13 @@ $radius: 3px;
   &:hover .answer_field_handle {
     background: #ddd;
     border-color: #ccc;
+  }
+
+  &:first-child .remove_link { display: none; }
+}
+.question_field {
+  &.rank_field, &.text_area_field, &.text_field, &.date_field {
+    .answers_list { display: none; }
   }
 }
 
