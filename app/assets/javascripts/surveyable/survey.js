@@ -4,14 +4,12 @@
     var regexp = new RegExp("new_" + association, "g");
     $(content.replace(regexp, new_id)).insertBefore(link);
     reorderQuestionPosition();
-    autoAppendAnswer();
   };
 
   var remove_fields = function(link) {
     $(link).prev("input[type=hidden]").val("1");
     $(link).closest(".togglable").remove();
     reorderQuestionPosition();
-    autoAppendAnswer();
   };
 
   var resetAnswers = function($field){
@@ -19,8 +17,7 @@
   }
 
   var autoAppendAnswer = function(){
-    $("input.answer-content").off("keyup");
-    $("input.answer-content").on("keyup", function(){
+    $(document).on("keyup", "input.answer-content", function(){
       var $parent = $(this).closest(".question_field");
       if ($(this)[0] == $("input.answer-content", $parent).last()[0]) {
         $parent.find(".add-answers-link").click();
@@ -33,7 +30,7 @@
       var $this = $(this);
       var $field = $this.closest('.question_field');
       var field_type = $this.find('option:selected').val()
-      var reset_types = ["text_area_field", "text_field", "date_field"]
+      var reset_types = ["text_area_field", "text_field", "date_field", "rank_field"]
       
       if ($.inArray( field_type, reset_types) != -1 ) {
         resetAnswers($field);
