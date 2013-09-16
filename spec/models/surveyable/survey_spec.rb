@@ -51,5 +51,34 @@ module Surveyable
         survey.should_not be_enabled
       end
     end
+
+    describe "#potential_score" do
+      let!(:survey) { create(:survey) }
+      let!(:question1) { create(:question, survey: survey) }
+      let!(:question2) { create(:question, survey: survey) }
+
+      before do
+        Surveyable::Question.any_instance.stub(:potential_score).and_return(8)
+      end
+
+      it "sums up questions potential scores" do
+        survey.potential_score.should == 16
+      end
+    end
+
+    describe "#average_score" do
+      let!(:survey) { create(:survey) }
+      let!(:response1) { create(:response, survey: survey) }
+      let!(:response2) { create(:response, survey: survey) }
+
+      before do
+        Surveyable::Response.any_instance.stub(:score).and_return(8)
+      end
+
+
+      it "returns sum of responses scores" do
+        survey.average_score.should == 8
+      end
+    end
   end
 end

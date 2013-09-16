@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe "Create survey" do
   it "adds new survey", js: true do
+    pending
     visit new_surveyable_survey_path
 
     fill_in "Survey name", with: "Survey #1"
@@ -14,6 +15,10 @@ describe "Create survey" do
       fill_in 'surveyable_survey_questions_attributes_0_answers_attributes_0_content', with: 'Good'
       fill_in 'surveyable_survey_questions_attributes_0_answers_attributes_1_content', with: 'Bad'
     end
+
+    all_questions = all('.question_field')
+
+    click_on "Add question"
 
     within(all_questions.last) do
       fill_in 'surveyable_survey_questions_attributes_2_content', with: "How many cars do you have?"

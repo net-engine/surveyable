@@ -64,5 +64,27 @@ module Surveyable
         end
       end
     end
+
+    describe "#potential_score" do
+      context "when question is checkbox_field" do
+        let(:question) { create(:question, field_type: :check_box_field) }
+        let!(:answer1) { create(:answer, question: question, score: 1) }
+        let!(:answer2) { create(:answer, question: question, score: 2) }
+
+        it "returns sum of answers score" do
+          question.potential_score.should == 3
+        end
+      end
+
+      context "when question is not checkbox" do
+        let(:question) { create(:question, field_type: :radio_button_field) }
+        let!(:answer1) { create(:answer, question: question, score: 1) }
+        let!(:answer2) { create(:answer, question: question, score: 2) }
+
+        it "returns max answers score" do
+          question.potential_score.should == 2
+        end
+      end
+    end
   end
 end

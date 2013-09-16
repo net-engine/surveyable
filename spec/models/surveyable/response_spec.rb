@@ -54,7 +54,7 @@ module Surveyable
       end
     end
 
-    describe "#score" do
+    describe "#average_score" do
       context "when there are two answers for a first question and one answer for a second question" do
         let(:survey)   { create(:survey_with_questions_and_answers) }
         let(:response) { create(:response, survey: survey) }
@@ -76,8 +76,8 @@ module Surveyable
           answer2.score = 70
           answer3.score = 100
           [answer1, answer2, answer3].map(&:save)
-          # ((30 + 70) / 2) + 100) / 2
-          response.reload.score.should == 75
+
+          response.reload.average_score.should == 67
         end
       end
 
@@ -85,8 +85,8 @@ module Surveyable
         let(:survey)   { create(:survey_with_questions_and_answers) }
         let(:response) { create(:response, survey: survey) }
 
-        it "returns No Score" do
-          response.score.should == "No Score"
+        it "returns zero" do
+          response.average_score.should == 0
         end
       end
     end

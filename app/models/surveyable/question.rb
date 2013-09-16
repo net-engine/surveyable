@@ -34,14 +34,11 @@ module Surveyable
     end
 
     def potential_score
-      sum_of_scores_types = ["check_box_field"]
-      
-      if sum_of_scores_types.include?(field_type)
-        answers.pluck(:score).inject(:+)
-      
+      case self.field_type.to_s
+      when 'check_box_field'
+        answers.pluck(:score).inject(:+) rescue 0
       else
         answers.pluck(:score).max
-
       end
     end
 

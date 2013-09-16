@@ -8,7 +8,7 @@ module Surveyable
     validates :question, presence: true
 
     def score
-      answer.score
+      answer.score rescue 0
     end
   end
 end

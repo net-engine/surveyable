@@ -45,6 +45,11 @@ FactoryGirl.define do
     respondable { build(:person) }
   end
 
+  factory :response_answer, class: Surveyable::ResponseAnswer do
+    question
+    response
+  end
+
   factory :person do
     name 'Testing'
     email 'testing@email.com'
