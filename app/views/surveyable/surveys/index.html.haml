@@ -26,9 +26,9 @@
             = "#{ survey.average_score } / #{ survey.potential_score }"
             = "#{ 100 / survey.potential_score * survey.average_score }%" unless survey.potential_score == 0 or survey.average_score == 0
           %td
-            = link_to 'Reports', surveyable_survey_path(survey), class: 'btn'
+            = link_to 'Reports', surveyable_survey_path(survey), class: 'btn button'
             = link_to('Edit', edit_surveyable_survey_path(survey), class: 'btn') unless survey.has_been_answered?
-            = link_to 'Delete', surveyable_survey_path(survey), method: :delete, confirm: 'Are you sure you want to delete this survey?', class: 'btn btn-danger'
+            = link_to 'Delete', surveyable_survey_path(survey), method: :delete, confirm: 'Are you sure you want to delete this survey?', class: 'btn button btn-danger'
 
 - else
   %p.empty No surveys have been created yet.
