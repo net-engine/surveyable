@@ -29,7 +29,9 @@ module Surveyable
     end
 
     def average_score
-      self.responses.map(&:score).sum / self.responses.count rescue 0
+      dividor = self.responses.completed.any? ? self.responses.completed.count.to_f : 1
+
+      (self.responses.completed.map(&:score).sum.to_f / dividor).round(2)
     end
   end
 end

@@ -22,17 +22,21 @@ module Surveyable
     end
 
     def score
-      response_answers.map(&:score).sum rescue 0
+      reportable_answers.map(&:score).compact.sum rescue 0
     end
 
     # TODO: Change moneywise references to .score to average_score
     def average_score
-      dividor = response_answers.any? ? response_answers.count : 1
+      dividor = reportable_answers.any? ? reportable_answers.count : 1
 
-      (score.to_f / dividor).round
+      (score.to_f / dividor.to_f).round
     end
 
     private
+
+    def reportable_answers
+      response_answers.includes(:question).where(questions: { field_type: Surveyable::Question::REPORTABLE_TYPES })
+    end
 
     def generate_token
       self.access_token = SecureRandom.uuid

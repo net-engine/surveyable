@@ -69,17 +69,17 @@ module Surveyable
 
     describe "#average_score" do
       let!(:survey) { create(:survey) }
-      let!(:response1) { create(:response, survey: survey) }
-      let!(:response2) { create(:response, survey: survey) }
+      let!(:response1) { create(:response, survey: survey, completed_at: Time.now) }
+      let!(:response2) { create(:response, survey: survey, completed_at: Time.now) }
 
       before do
         Surveyable::Response.any_instance.stub(:score).and_return(8)
       end
 
-
       it "returns sum of responses scores" do
-        survey.average_score.should == 8
+        survey.average_score.should == 8.0
       end
     end
   end
 end
+
