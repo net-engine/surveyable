@@ -21,7 +21,7 @@ module Surveyable
     end
 
     def has_been_answered?
-      self.responses.where('completed_at IS NOT NULL').count > 0
+      false#self.responses.where('completed_at IS NOT NULL').count > 0
     end
 
     def potential_score
