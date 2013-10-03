@@ -12,7 +12,7 @@ module Surveyable
       ['Rank Field', :rank_field]
     ]
 
-    REPORTABLE_TYPES = ["select_field", "radio_button_field", "check_box_field", "rank_field"]
+    REPORTABLE_TYPES = ["select_field", "radio_button_field", "check_box_field", "rank_field", "text_field"]
 
     has_many :answers, dependent: :destroy, order: :position
     has_many :response_answers
