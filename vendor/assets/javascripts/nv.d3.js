@@ -10264,7 +10264,7 @@ nv.models.pie = function() {
       gEnter.append('g').attr('class', 'nv-pie');
 
       wrap.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
-      g.select('.nv-pie').attr('transform', 'translate(' + availableWidth / 4 + ',' + availableHeight * 0.75 + ')');
+      g.select('.nv-pie').attr('transform', 'translate(' + availableWidth / 4 + ',' + availableHeight * 0.667 + ')');
 
       //------------------------------------------------------------
 
