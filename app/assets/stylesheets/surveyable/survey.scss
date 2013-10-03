@@ -133,8 +133,11 @@ $radius: 3px;
   }
 }
 
-.pie-chart{
-  border-style: solid;
-  border-color: #D4D6D8;
-  border-width: 2px;
+.nv-point-paths [class*="nv-path-"] {
+  display: none;
+}
+
+
+.nv-line .nv-group {
+  fill: none !important;
 }

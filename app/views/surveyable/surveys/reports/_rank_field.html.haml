@@ -1,4 +1,3 @@
-%figure{ class: "rank_field" }
-  = hidden_field_tag "reportable_question", question.id, id: nil, class: "reportable_question"
-  .graph
-
+= hidden_field_tag "reportable_question", question.id, id: nil, class: "reportable_question"
+.graph{ id: "question_#{ question.id }" }
+  %svg
