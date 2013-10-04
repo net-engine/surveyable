@@ -60,6 +60,11 @@ Surveyable = (function(){
           .showValues(true)
           .color(Surveyable.graphColors);
 
+      chart.yAxis
+        .tickFormat(d3.format('d'));
+
+      chart.valueFormat(d3.format('d'));
+
       if (data.length > 8) {
         chart.xAxis.rotateLabels(-30);
       } else {
