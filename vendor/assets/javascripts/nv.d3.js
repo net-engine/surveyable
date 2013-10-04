@@ -4969,7 +4969,6 @@ nv.models.indentedTree = function() {
         var legendWidth = 0;
         var columnWidths = [];
 
-
         while ( legendWidth < availableWidth && seriesPerRow < seriesWidths.length) {
           columnWidths[seriesPerRow] = seriesWidths[seriesPerRow];
           legendWidth += seriesWidths[seriesPerRow++];
@@ -4997,23 +4996,20 @@ nv.models.indentedTree = function() {
             curX += columnWidths[i];
         }
 
-        // HACK!
-        legendWidth = availableWidth / 2;
-
         series
             .attr('transform', function(d, i) {
-              return 'translate(' + xPositions[i % 1] + ',' + (5 + Math.floor(i / 1) * 20) + ')';
+              return 'translate(' + xPositions[i % seriesPerRow] + ',' + (5 + Math.floor(i / seriesPerRow) * 20) + ')';
             });
 
         //position legend as far right as possible within the total width
         if (rightAlign) {
-          g.attr('transform', 'translate(' + (width - margin.right - legendWidth) + ',' + margin.top + ')');
+           g.attr('transform', 'translate(' + (width - margin.right - legendWidth) + ',' + margin.top + ')');
         }
         else {
-          g.attr('transform', 'translate(0' + ',' + margin.top + ')');
+           g.attr('transform', 'translate(0' + ',' + margin.top + ')');
         }
 
-        height = margin.top + margin.bottom + (Math.ceil(seriesWidths.length / 1) * 20);
+        height = margin.top + margin.bottom + (Math.ceil(seriesWidths.length / seriesPerRow) * 20);
 
       } else {
 
@@ -10247,7 +10243,7 @@ nv.models.pie = function() {
     selection.each(function(data) {
       var availableWidth = width - margin.left - margin.right,
           availableHeight = height - margin.top - margin.bottom,
-          radius = Math.min(availableWidth, availableHeight) * 0.75,
+          radius = Math.min(availableWidth, availableHeight) / 2,
           arcRadius = radius-(radius / 5),
           container = d3.select(this);
 
@@ -10264,7 +10260,7 @@ nv.models.pie = function() {
       gEnter.append('g').attr('class', 'nv-pie');
 
       wrap.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
-      g.select('.nv-pie').attr('transform', 'translate(' + availableWidth / 4 + ',' + availableHeight * 0.667 + ')');
+      g.select('.nv-pie').attr('transform', 'translate(' + availableWidth / 2 + ',' + availableHeight / 2 + ')');
 
       //------------------------------------------------------------
 
@@ -10739,13 +10735,13 @@ nv.models.pieChart = function() {
         }
 
         wrap.select('.nv-legendWrap')
-            .attr('transform', 'translate(0,0)');
+            .attr('transform', 'translate(0,' + (-margin.top) +')');
       }
 
       //------------------------------------------------------------
 
 
-      wrap.attr('transform', 'translate(0,0)');
+      wrap.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
 
       //------------------------------------------------------------

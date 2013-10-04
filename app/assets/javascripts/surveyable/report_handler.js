@@ -4,21 +4,7 @@ Surveyable = (function(){
 
   function Surveyable() {}
 
-  var drawGraph, barRequired, lineRequired;
-
-  barRequired = {
-    xkey: 'answer_text',
-    ykeys: ['answer_occurrence'],
-    labels: ['Answer Occurrence'],
-    xLabelAngle: 35
-  }
-
-  lineRequired = {
-    xkey: 'answer_text',
-    ykeys: ['answer_occurrence'],
-    labels: ['Answer Occurrence'],
-    parseTime: false
-  }
+  Surveyable.graphColors = d3.scale.category20c().range()
 
   Surveyable.checkBoxFieldGraph = function(in_data, element){
     var answer_values   = $.map(in_data.answers, function(answer, index){
@@ -34,8 +20,18 @@ Surveyable = (function(){
           .staggerLabels(false)
           .tooltips(false)
           .showValues(true)
+          .color(Surveyable.graphColors);
 
-      chart.xAxis.rotateLabels(-45);
+      chart.yAxis
+        .tickFormat(d3.format('d'));
+
+      chart.valueFormat(d3.format('d'));
+
+      if (data.length > 8) {
+        chart.xAxis.rotateLabels(-30);
+      } else {
+        chart.staggerLabels(true)
+      }
 
       d3.select("#" +  element + " svg")
           .datum(data)
@@ -62,8 +58,13 @@ Surveyable = (function(){
           .staggerLabels(false)
           .tooltips(false)
           .showValues(true)
+          .color(Surveyable.graphColors);
 
-      chart.xAxis.rotateLabels(-45);
+      if (data.length > 8) {
+        chart.xAxis.rotateLabels(-30);
+      } else {
+        chart.staggerLabels(true)
+      }
 
       d3.select("#" +  element + " svg")
           .datum(data)
@@ -86,29 +87,28 @@ Surveyable = (function(){
     nv.addGraph(function() {  
       var chart = nv.models.lineChart()
         .showLegend(false)
-        .tooltips(false);
+        .tooltips(false)
+        .color(Surveyable.graphColors);
 
       chart.xAxis
-         .axisLabel('Range')
-         .tickFormat(d3.format(',r'));
+         .tickFormat(d3.format('d'));
 
       chart.yAxis
-         .axisLabel('Responses')
-         .tickFormat(d3.format('.02f'));
+         .tickFormat(d3.format('d'));
 
-      d3.select("#" +  element + " svg")
+      d3.select("#" + element + " svg")
          .datum(data)
        .transition().duration(500)
          .call(chart);
 
-      nv.utils.windowResize(function() { d3.select("#" +  element + " svg").call(chart) });
+      nv.utils.windowResize(chart.update);
 
       return chart;
     });
   }
   
   Surveyable.radioButtonFieldGraph = function(in_data, element){
-    var data   = $.map(in_data.answers, function(answer, index){
+    var data = $.map(in_data.answers, function(answer, index){
       return { label: answer.answer_text, value: answer.answer_occurrence }
     });
 
@@ -117,15 +117,26 @@ Surveyable = (function(){
           .x(function(d) { return d.label })
           .y(function(d) { return d.value })
           .showLabels(false)
-          .donut(true);
+          .showLegend(false)
+          .tooltips(false)
+          .donut(true)
+          .margin({ top: 0, bottom: 0 })
+          .color(Surveyable.graphColors);
 
-        d3.select("#" +  element + " svg")
+        d3.select("#" + element + " svg")
             .datum(data)
           .transition().duration(1200)
             .call(chart);
 
+      nv.utils.windowResize(chart.update);
+
       return chart;
     });
+
+    $(data).each(function(index){
+      $("<li style='color: " + Surveyable.graphColors[index] + "' class='series_" + index + "'>" + this.label + "<span class=\"value\">" + this.value + "</span></li>").appendTo("#" +  element + " .legend")
+    });
+
   }
 
   Surveyable.report = function(data, element) {
