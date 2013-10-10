@@ -87,7 +87,7 @@ Surveyable = (function(){
       return { x: index, y: answer.answer_occurrence }
     });
 
-    var data = [{ values: answer_values, key: "Foo" }]
+    var data = [{ values: answer_values }]
 
     nv.addGraph(function() {  
       var chart = nv.models.lineChart()
