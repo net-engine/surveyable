@@ -4,14 +4,14 @@ Surveyable = (function(){
 
   function Surveyable() {}
 
-  Surveyable.graphColors = d3.scale.category20c().range()
+  Surveyable.graphColors = d3.scale.category20c().range();
 
   Surveyable.checkBoxFieldGraph = function(in_data, element){
     var answer_values   = $.map(in_data.answers, function(answer, index){
       return { label: answer.answer_text, value: answer.answer_occurrence }
     });
 
-    var data = [{ values: answer_values }]
+    var data = [{ values: answer_values }];
 
     nv.addGraph(function() {
       var chart = nv.models.discreteBarChart()
@@ -42,14 +42,14 @@ Surveyable = (function(){
 
       return chart;
     });
-  }
+  };
 
   Surveyable.selectFieldGraph = function(in_data, element){
     var answer_values   = $.map(in_data.answers, function(answer, index){
       return { label: answer.answer_text, value: answer.answer_occurrence }
     });
 
-    var data = [{ values: answer_values }]
+    var data = [{ values: answer_values }];
 
     nv.addGraph(function() {
       var chart = nv.models.discreteBarChart()
@@ -80,7 +80,7 @@ Surveyable = (function(){
 
       return chart;
     });
-  }
+  };
   
   Surveyable.rankFieldGraph = function(in_data, element){
     var answer_values   = $.map(in_data.answers, function(answer, index){
@@ -110,7 +110,7 @@ Surveyable = (function(){
 
       return chart;
     });
-  }
+  };
   
   Surveyable.radioButtonFieldGraph = function(in_data, element){
     var data = $.map(in_data.answers, function(answer, index){
@@ -142,7 +142,7 @@ Surveyable = (function(){
       $("<li style='color: " + Surveyable.graphColors[index] + "' class='series_" + index + "'>" + this.label + "<span class=\"value\">" + this.value + "</span></li>").appendTo("#" +  element + " .legend")
     });
 
-  }
+  };
 
   Surveyable.report = function(data, element) {
     if (data.field_type == "check_box_field") {
@@ -158,7 +158,7 @@ Surveyable = (function(){
       Surveyable.selectFieldGraph(data, element);
     
     }
-  }
+  };
 
   return Surveyable;
 
