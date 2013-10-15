@@ -259,3 +259,7 @@ vendor
   External libraries that the application depends on. Also includes the plugins
   subdirectory. If the app has frozen rails, those gems also go here, under
   vendor/rails/. This directory is in the load path.
+
+To upgrade the app db before launching the tests, one should launch:
+- bundle exec rake app:db:migrate
+- bundle exec rake app:db:test:prepare
