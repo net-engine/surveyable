@@ -4,7 +4,7 @@ module Surveyable
     belongs_to :respondent, polymorphic: true
     belongs_to :survey
 
-    has_many :response_answers
+    has_many :response_answers, dependent: :destroy
 
     validates :access_token, :survey, presence: true
 
