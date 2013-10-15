@@ -14,7 +14,7 @@
 
   var resetAnswers = function($field){
     $("input.answer-content", $field).each(function(){ $(this).val("") });
-  }
+  };
 
   var autoAppendAnswer = function(){
     $(document).on("keyup", "input.answer-content", function(){
@@ -23,7 +23,7 @@
         $parent.find(".add-answers-link").click();
       }
     });
-  }
+  };
 
   var bindQuestionTypeChanges = function(){
     $(document).on('change', '.question_field_type_select', function(e) {
