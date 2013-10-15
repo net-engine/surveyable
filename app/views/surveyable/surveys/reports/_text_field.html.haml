@@ -1,0 +1,15 @@
+%figure{ class: "text_field" }
+  = hidden_field_tag "reportable_question", question.id, id: nil, class: "reportable_question"
+  %table.surveyable-report-table
+    %thead
+      %tr.surveyable-report-table-header-row
+        %th.surveyable-report-table-respondant-header Respondent
+        %th.surveyable-report-table-subject-header Subject
+        %th.surveyable-report-table-content-header Content
+    
+    %tbody
+      - question.response_answers.each do |answer|
+        %tr.surveyable-report-table-data-row
+          %td.surveyable-report-table-respondant-data= answer.response.respondent
+          %td.surveyable-report-table-subject-data= answer.response.respondable
+          %td.surveyable-report-table-content-data= answer.free_content

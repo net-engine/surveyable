@@ -25,13 +25,15 @@ module Surveyable
     end
 
     def potential_score
-      self.questions.map(&:potential_score).compact.sum
+      return @potential_score if @potential_score
+      @potential_score = self.questions.map(&:potential_score).compact.sum
     end
 
     def average_score
-      dividor = self.responses.completed.any? ? self.responses.completed.count.to_f : 1
+      return @average_score if @average_score
+      denominator      = self.responses.completed.any? ? self.responses.completed.count.to_f : 1
 
-      (self.responses.completed.map(&:score).sum.to_f / dividor).round(2)
+      @average_score   = (self.responses.completed.map(&:score).sum.to_f / denominator).round(2)
     end
   end
 end

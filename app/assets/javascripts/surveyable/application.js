@@ -13,5 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require morris
+//= require d3
+//= require nv.d3
 //= require ./survey
 //= require ./report_handler

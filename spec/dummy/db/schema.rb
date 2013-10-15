@@ -11,15 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130725060747) do
+ActiveRecord::Schema.define(:version => 20131015001900) do
 
   create_table "answers", :force => true do |t|
     t.integer  "question_id"
     t.integer  "position"
     t.text     "content"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-    t.integer  "score"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+    t.integer  "score",       :default => 0
   end
 
   add_index "answers", ["question_id"], :name => "index_answers_on_question_id"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(:version => 20130725060747) do
     t.integer  "maximum"
   end
 
+  add_index "questions", ["field_type"], :name => "index_questions_on_field_type"
   add_index "questions", ["survey_id"], :name => "index_questions_on_survey_id"
 
   create_table "response_answers", :force => true do |t|
@@ -70,6 +71,7 @@ ActiveRecord::Schema.define(:version => 20130725060747) do
     t.string   "respondent_id"
   end
 
+  add_index "responses", ["survey_id", "completed_at"], :name => "completed_responses"
   add_index "responses", ["survey_id"], :name => "index_responses_on_survey_id"
 
   create_table "surveys", :force => true do |t|

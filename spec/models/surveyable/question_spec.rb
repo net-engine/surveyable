@@ -54,13 +54,13 @@ module Surveyable
 
       context "when field type is text field" do
         it "returns false" do
-          Surveyable::Question.new(field_type: 'text_field').should_not be_reportable
+          Surveyable::Question.new(field_type: 'text_field').should be_reportable
         end
       end
 
       context "when field type is text area field" do
         it "returns false" do
-          Surveyable::Question.new(field_type: 'text_area_field').should_not be_reportable
+          Surveyable::Question.new(field_type: 'text_area_field').should be_reportable
         end
       end
     end

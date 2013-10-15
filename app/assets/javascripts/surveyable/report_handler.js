@@ -1,94 +1,184 @@
-(function(w){
-  var SurveyableMaster = function(){
+var Surveyable;
 
-    var self = this, drawGraph, barRequired, lineRequired;
+Surveyable = (function(){
 
-    barRequired = {
-      xkey: 'answer_text',
-      ykeys: ['answer_occurrence'],
-      labels: ['Answer Occurrence'],
-      xLabelAngle: 35
-    }
+  function Surveyable() {}
 
-    lineRequired = {
-      xkey: 'answer_text',
-      ykeys: ['answer_occurrence'],
-      labels: ['Answer Occurrence'],
-      parseTime: false
-    }
+  Surveyable.graphColors = d3.scale.category20c().range();
 
-    drawGraph = function(type, data, $element, options){
-      var defaults = {
-        element: $element,
-        data: data
+  Surveyable.checkBoxFieldGraph = function(in_data, element){
+    var answer_values   = $.map(in_data.answers, function(answer, index){
+      return { label: answer.answer_text, value: answer.answer_occurrence }
+    });
+
+    var data = [{ values: answer_values }];
+
+    nv.addGraph(function() {
+      var chart = nv.models.discreteBarChart()
+          .x(function(d) { return d.label })
+          .y(function(d) { return d.value })
+          .staggerLabels(false)
+          .tooltips(false)
+          .showValues(true)
+          .color(Surveyable.graphColors);
+
+      chart.yAxis
+        .tickFormat(d3.format('d'));
+
+      chart.valueFormat(d3.format('d'));
+
+      if (data.length > 8) {
+        chart.xAxis.rotateLabels(-30);
+      } else {
+        chart.staggerLabels(true)
       }
-      var finalOptions = $.extend(defaults, options);
-      var graph = new Morris[type](finalOptions);
-    }
 
-    this.checkBoxFieldGraph = function(data, $element){
-      var outOptions = $.extend(self.checkBoxFieldGraphOptions, barRequired)
+      d3.select("#" +  element + " svg")
+          .datum(data)
+        .transition().duration(500)
+          .call(chart);
 
-      drawGraph("Bar", data, $element, outOptions);
-    }
+      nv.utils.windowResize(chart.update);
 
-    this.selectFieldGraph = function(data, $element){
-      var outOptions = $.extend(self.selectFieldGraphOptions, barRequired)
+      return chart;
+    });
+  };
 
-      drawGraph("Bar", data, $element, outOptions);
-    }
+  Surveyable.selectFieldGraph = function(in_data, element){
+    var answer_values   = $.map(in_data.answers, function(answer, index){
+      return { label: answer.answer_text, value: answer.answer_occurrence }
+    });
+
+    var data = [{ values: answer_values }];
+
+    nv.addGraph(function() {
+      var chart = nv.models.discreteBarChart()
+          .x(function(d) { return d.label })
+          .y(function(d) { return d.value })
+          .staggerLabels(false)
+          .tooltips(false)
+          .showValues(true)
+          .color(Surveyable.graphColors);
+
+      chart.yAxis
+        .tickFormat(d3.format('d'));
+
+      chart.valueFormat(d3.format('d'));
+
+      if (data.length > 8) {
+        chart.xAxis.rotateLabels(-30);
+      } else {
+        chart.staggerLabels(true)
+      }
+
+      d3.select("#" +  element + " svg")
+          .datum(data)
+        .transition().duration(500)
+          .call(chart);
+
+      nv.utils.windowResize(chart.update);
+
+      return chart;
+    });
+  };
+  
+  Surveyable.rankFieldGraph = function(in_data, element){
+    var answer_values   = $.map(in_data.answers, function(answer, index){
+      return { x: index, y: answer.answer_occurrence }
+    });
+
+    var data = [{ values: answer_values }]
+
+    nv.addGraph(function() {  
+      var chart = nv.models.lineChart()
+        .showLegend(false)
+        .tooltips(false)
+        .color(Surveyable.graphColors);
+
+      chart.xAxis
+         .tickFormat(d3.format('d'));
+
+      chart.yAxis
+         .tickFormat(d3.format('d'));
+
+      d3.select("#" + element + " svg")
+         .datum(data)
+       .transition().duration(500)
+         .call(chart);
+
+      nv.utils.windowResize(chart.update);
+
+      return chart;
+    });
+  };
+  
+  Surveyable.radioButtonFieldGraph = function(in_data, element){
+    var data = $.map(in_data.answers, function(answer, index){
+      return { label: answer.answer_text, value: answer.answer_occurrence }
+    });
+
+    nv.addGraph(function() {
+      var chart = nv.models.pieChart()
+          .x(function(d) { return d.label })
+          .y(function(d) { return d.value })
+          .showLabels(false)
+          .showLegend(false)
+          .tooltips(false)
+          .donut(true)
+          .margin({ top: 0, bottom: 0 })
+          .color(Surveyable.graphColors);
+
+        d3.select("#" + element + " svg")
+            .datum(data)
+          .transition().duration(1200)
+            .call(chart);
+
+      nv.utils.windowResize(chart.update);
+
+      return chart;
+    });
+
+    $(data).each(function(index){
+      $("<li style='color: " + Surveyable.graphColors[index] + "' class='series_" + index + "'>" + this.label + "<span class=\"value\">" + this.value + "</span></li>").appendTo("#" +  element + " .legend")
+    });
+
+  };
+
+  Surveyable.report = function(data, element) {
+    if (data.field_type == "check_box_field") {
+      Surveyable.checkBoxFieldGraph(data, element);
+
+    } else if (data.field_type == "rank_field") {
+      Surveyable.rankFieldGraph(data, element);
     
-    this.rankFieldGraph = function(data, $element){
-      var outOptions = $.extend(self.rankFieldGraphOptions, lineRequired)
-
-      drawGraph("Line", data, $element, outOptions);
-    }
+    } else if (data.field_type == "radio_button_field") {
+      Surveyable.radioButtonFieldGraph(data, element);
     
-    this.radioButtonFieldGraph = function(data, $element){
-      var outData = $.map(data, function(answer, index){
-        return { value: answer.answer_occurrence, label: answer.answer_text };
+    } else if (data.field_type == "select_field") {
+      Surveyable.selectFieldGraph(data, element);
+    
+    }
+  };
+
+  return Surveyable;
+
+})();
+
+$(document).ready(function(){
+  var $reportableQuestion = $(".reportable_question");
+  
+  if ($reportableQuestion.length > 0){
+    $reportableQuestion.each(function( index ){
+      var element = $(this).closest('.question').find('.graph').attr('id');
+      
+      $.ajax({
+        url: "/surveyable/questions/"+$(this).val()+"/reports",
+        dataType: "json",
+        success: function(results){
+          Surveyable.report(results, element);
+        }
       });
-      
-      drawGraph("Donut", outData, $element, self.radioButtonFieldGraphOptions);
-    }
-
-    this.report = function(data, $element) {
-      if (data.field_type == "check_box_field") {
-        self.checkBoxFieldGraph(data.answers, $element);
-
-      } else if (data.field_type == "rank_field") {
-        self.rankFieldGraph(data.answers, $element);
-      
-      } else if (data.field_type == "radio_button_field") {
-        self.radioButtonFieldGraph(data.answers, $element);
-      
-      } else if (data.field_type == "select_field") {
-        self.selectFieldGraph(data.answers, $element);
-      
-      }
-    }
-
-    return self;
+    });
   }
-
-  w.Surveyable = SurveyableMaster();
-
-  $(document).ready(function(){
-    var $reportableQuestion = $(".reportable_question");
-    
-    if ($reportableQuestion.length > 0){
-      $reportableQuestion.each(function( index ){
-        var $element = $(this).closest('.question').find('.graph');
-        
-        $.ajax({
-          url: "/surveyable/questions/"+$(this).val()+"/reports",
-          dataType: "json",
-          success: function(results){
-            Surveyable.report(results, $element);
-          }
-        });
-      });
-    }
-  });
-})(window);
+});
 
