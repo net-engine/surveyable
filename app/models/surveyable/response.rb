@@ -11,7 +11,7 @@ module Surveyable
     before_validation :generate_token, on: :create
 
     scope :completed, ->{ where("completed_at IS NOT NULL") }
-    scope :pending, ->{ where("completed_at IS NULL") }
+    scope :pending,   ->{ where("completed_at IS NULL")     }
 
     def completed?
       !!completed_at
@@ -27,9 +27,9 @@ module Surveyable
 
     # TODO: Change moneywise references to .score to average_score
     def average_score
-      dividor = reportable_answers.any? ? reportable_answers.count : 1
+      denominator = reportable_answers.any? ? reportable_answers.count : 1
 
-      (score.to_f / dividor.to_f).round
+      (score.to_f / denominator.to_f).round
     end
 
     private
