@@ -32,6 +32,10 @@ module Surveyable
       (score.to_f / denominator.to_f).round
     end
 
+    def respondable
+      respondable_type.constantize.unscoped { super } rescue nil
+    end
+
     private
 
     def reportable_answers
