@@ -1,5 +1,9 @@
 module Surveyable
   class ResponsesController < ::Surveyable::ApplicationController
+    def index
+      @responses = Response.all
+    end
+
     def create
       @response = Response.new(params[:surveyable_response])
 
