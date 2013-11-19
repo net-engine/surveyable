@@ -138,8 +138,10 @@ Surveyable = (function(){
       return chart;
     });
 
+    $("#" +  element + " .legend").html('');
+
     $(data).each(function(index){
-      $("<li style='color: " + Surveyable.graphColors[index] + "' class='series_" + index + "'>" + this.label + "<span class=\"value\">" + this.value + "</span></li>").appendTo("#" +  element + " .legend")
+      $("#" +  element + " .legend").append($("<li style='color: " + Surveyable.graphColors[index] + "' class='series_" + index + "'>" + this.label + "<span class=\"value\">" + this.value + "</span></li>"));
     });
 
   };
