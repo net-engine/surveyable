@@ -42,6 +42,7 @@ GEM
       activerecord (>= 3.0)
     addressable (2.3.4)
     arel (3.0.2)
+    awesome_print (1.2.0)
     builder (3.0.4)
     capybara (2.1.0)
       mime-types (>= 1.16)
@@ -50,6 +51,7 @@ GEM
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
     chunky_png (1.2.8)
+    coderay (1.0.9)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -57,7 +59,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.2)
-    columnize (0.3.6)
     compass (0.12.2)
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
@@ -65,12 +66,6 @@ GEM
     compass-rails (1.0.3)
       compass (>= 0.12.2, < 0.14)
     database_cleaner (0.9.1)
-    debugger (1.6.0)
-      columnize (>= 0.3.1)
-      debugger-linecache (~> 1.2.0)
-      debugger-ruby_core_source (~> 1.2.1)
-    debugger-linecache (1.2.0)
-    debugger-ruby_core_source (1.2.2)
     diff-lcs (1.2.4)
     erubis (2.7.0)
     eventmachine (1.0.3)
@@ -104,6 +99,7 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    method_source (0.8.2)
     mime-types (1.23)
     multi_json (1.7.3)
     nokogiri (1.5.9)
@@ -112,6 +108,20 @@ GEM
       faye-websocket (~> 0.4, >= 0.4.4)
       http_parser.rb (~> 0.5.3)
     polyglot (0.3.3)
+    pry (0.9.12.2)
+      coderay (~> 1.0.5)
+      method_source (~> 0.8)
+      slop (~> 3.4)
+    pry-meta (0.0.5)
+      awesome_print
+      pry
+      pry-nav
+      pry-remote
+    pry-nav (0.2.3)
+      pry (~> 0.9.10)
+    pry-remote (0.1.7)
+      pry (~> 0.9)
+      slop (~> 3.0)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -151,6 +161,7 @@ GEM
     sass (3.2.9)
     shoulda-matchers (2.1.0)
       activesupport (>= 3.0.0)
+    slop (3.4.6)
     sprockets (2.2.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -174,11 +185,11 @@ DEPENDENCIES
   coffee-rails
   compass-rails
   database_cleaner
-  debugger
   factory_girl
   haml-rails
   launchy
   poltergeist
+  pry-meta
   rspec-rails
   shoulda-matchers
   sqlite3
