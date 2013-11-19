@@ -81,7 +81,7 @@ Surveyable = (function(){
       return chart;
     });
   };
-  
+
   Surveyable.rankFieldGraph = function(in_data, element){
     var answer_values   = $.map(in_data.answers, function(answer, index){
       return { x: index, y: answer.answer_occurrence }
@@ -89,7 +89,7 @@ Surveyable = (function(){
 
     var data = [{ values: answer_values }]
 
-    nv.addGraph(function() {  
+    nv.addGraph(function() {
       var chart = nv.models.lineChart()
         .showLegend(false)
         .tooltips(false)
@@ -111,7 +111,7 @@ Surveyable = (function(){
       return chart;
     });
   };
-  
+
   Surveyable.radioButtonFieldGraph = function(in_data, element){
     var data = $.map(in_data.answers, function(answer, index){
       return { label: answer.answer_text, value: answer.answer_occurrence }
@@ -150,35 +150,40 @@ Surveyable = (function(){
 
     } else if (data.field_type == "rank_field") {
       Surveyable.rankFieldGraph(data, element);
-    
+
     } else if (data.field_type == "radio_button_field") {
       Surveyable.radioButtonFieldGraph(data, element);
-    
+
     } else if (data.field_type == "select_field") {
       Surveyable.selectFieldGraph(data, element);
-    
+
     }
   };
+
+  Surveyable.build = function(){
+    var $reportableQuestion = $(".reportable_question");
+
+    if ($reportableQuestion.length > 0){
+      $reportableQuestion.each(function( index ){
+        var element = $(this).closest('.question').find('.graph').attr('id');
+
+        $.ajax({
+          url: "/surveyable/questions/"+$(this).val()+"/reports",
+          dataType: "json",
+          data: $("#entityFilter").serialize(),
+          success: function(results){
+            Surveyable.report(results, element);
+          }
+        });
+      });
+    }
+  }
 
   return Surveyable;
 
 })();
 
 $(document).ready(function(){
-  var $reportableQuestion = $(".reportable_question");
-  
-  if ($reportableQuestion.length > 0){
-    $reportableQuestion.each(function( index ){
-      var element = $(this).closest('.question').find('.graph').attr('id');
-      
-      $.ajax({
-        url: "/surveyable/questions/"+$(this).val()+"/reports",
-        dataType: "json",
-        success: function(results){
-          Surveyable.report(results, element);
-        }
-      });
-    });
-  }
+  Surveyable.build();
 });
 
