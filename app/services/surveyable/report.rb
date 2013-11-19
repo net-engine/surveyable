@@ -4,17 +4,17 @@ module Surveyable
       new(options).build
     end
 
-    attr_reader :question
+    attr_reader :question, :current_user, :filters
 
     def initialize(options = {})
-      @question = options[:question]
+      @question     = options[:question]
+      @current_user = options[:current_user]
+      @filters      = options[:filters] || {}
     end
 
     def build
-      {
-        field_type: question.field_type,
-        answers: answers_with_occurences
-      }
+      { field_type: question.field_type,
+        answers: answers_with_occurences }
     end
 
     private
@@ -33,7 +33,9 @@ module Surveyable
     def set_occurences_through_answers
       [].tap do |distribution|
         question.answers.each do |answer|
-          distribution << { answer_occurrence: answer.response_answers.count, answer_text: answer.content }
+          answer_occurrence = Surveyable::ResponseAnswer.where(response_id: response_ids, answer_id: answer.id).count
+
+          distribution << { answer_occurrence: answer_occurrence, answer_text: answer.content }
         end
       end
     end
@@ -49,11 +51,21 @@ module Surveyable
     def count_occurences
       possible_results = Hash[(question.minimum..question.maximum).map { |i| [i.to_s, 0] }]
 
-      question.response_answers.each do |response_answer|
+      response_answers = Surveyable::ResponseAnswer.where(response_id: response_ids, question_id: question.id)
+
+      response_answers.each do |response_answer|
         possible_results[response_answer.free_content] += 1
       end
 
       possible_results
+    end
+
+    def response_ids
+      @response_ids ||= Surveyable::Response.where(visible_respondable_args).pluck(:id).uniq
+    end
+
+    def visible_respondable_args
+      Surveyable.report_filter_class.filter(filters.merge(current_user: current_user))
     end
   end
 end
