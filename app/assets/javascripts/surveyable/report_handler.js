@@ -163,19 +163,30 @@ Surveyable = (function(){
   };
 
   Surveyable.build = function(){
-    var $reportableQuestion = $(".reportable_question");
+    var $graphQuestions = $(".graph_report");
+    var $textQuestions = $(".text_report");
 
-    if ($reportableQuestion.length > 0){
-      $reportableQuestion.each(function( index ){
+    if ($graphQuestions.length > 0){
+      $graphQuestions.each(function(index){
         var element = $(this).closest('.question').find('.graph').attr('id');
 
         $.ajax({
-          url: "/surveyable/questions/"+$(this).val()+"/reports",
+          url: "/surveyable/questions/" + $(this).val() + "/reports",
           dataType: "json",
           data: $("#entityFilter").serialize(),
           success: function(results){
             Surveyable.report(results, element);
           }
+        });
+      });
+    }
+
+    if ($textQuestions.length > 0){
+      $textQuestions.each(function(index){
+        $(this).closest(".question").find(".response_answers").empty();
+        $.ajax({
+          url: "/surveyable/questions/" + $(this).val() + "/response_answers",
+          data: $("#entityFilter").serialize()
         });
       });
     }
