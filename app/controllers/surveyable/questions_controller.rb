@@ -1,13 +1,9 @@
 module Surveyable
   class QuestionsController < ::Surveyable::ApplicationController
-    begin
-      load_and_authorize_resource
-    rescue NameError
-      before_filter :fetch_question, only: :reports
-    end
+    before_filter :fetch_question
 
     def reports
-      render json: @question.reports
+      render json: Surveyable::Report.build(question: @question, current_user: current_user, filters: params[:filter])
     end
 
     private
@@ -17,3 +13,4 @@ module Surveyable
     end
   end
 end
+
