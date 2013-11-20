@@ -30,5 +30,30 @@ module Surveyable
         end
       end
     end
+
+    describe "#to_s" do
+      let(:survey) { create(:survey) }
+      let(:response) { create(:response, survey: survey) }
+
+      context "for text answers question" do
+        let(:question) { create(:question, survey: survey, field_type: "text_field") }
+        let(:response_answer) { create(:response_answer, question: question, response: response, free_content: "Free content mate") }
+
+        it "returns free content text" do
+          response_answer.to_s.should == "Free content mate"
+        end
+      end
+
+      context "for not text answers question" do
+        let(:question) { create(:question, survey: survey, field_type: "radio_button_field") }
+        let(:answer) { create(:answer, question: question, content: 'good') }
+        let(:response_answer) { create(:response_answer, response: response, question: question, answer: answer) }
+
+        it "returns free content text" do
+          response_answer.to_s.should == 'good'
+        end
+      end
+
+    end
   end
 end
