@@ -13,8 +13,8 @@ end
 class FakeSerializer
   attr_reader :object
 
-  def initialize(object)
-    @object = object
+  def initialize(options = {})
+    @object = options[:object]
   end
 
   def csv_headers
@@ -28,22 +28,12 @@ end
 
 describe Surveyable::CsvGenerator do
   let(:object) { FakeObject.new(foo: 1, bar: 2) }
-  let(:collection) { 4.times.collect { FakeObject.new(foo: 1, bar: 2) } }
   let(:serializer) { FakeSerializer }
 
   describe "#response" do
-    context "when it is not a collection" do
-      it "generates csv using serializer" do
-        csv_generator = described_class.new(csv_serializer: serializer, collection: object, filename: 'my_csv')
-        csv_generator.response.should == "foo,bar\n1,2\n"
-      end
-    end
-
-    context "when it is a collection" do
-      it "generates csv using serializer" do
-        csv_generator = described_class.new(csv_serializer: serializer, collection: collection, filename: 'my_csv')
-        csv_generator.response.should == "foo,bar\n1,2\n1,2\n1,2\n1,2\n"
-      end
+    it "generates csv using serializer" do
+      csv_generator = described_class.new(csv_serializer: serializer, object: object, filename: 'my_csv')
+      csv_generator.response.should == "foo,bar\n1,2\n"
     end
   end
 

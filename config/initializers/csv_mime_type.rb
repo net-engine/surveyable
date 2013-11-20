@@ -1,5 +1,5 @@
-ActionController::Renderers.add :csv do |collection, options|
-  generator = Surveyable::CsvGenerator.new(options.merge(collection: collection))
+ActionController::Renderers.add :csv do |object, options|
+  generator = Surveyable::CsvGenerator.new(options.merge(object: object))
 
   response = generator.response
   filename = generator.filename

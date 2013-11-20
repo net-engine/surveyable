@@ -1,11 +1,12 @@
 module Surveyable
   class CsvGenerator
-    attr_reader :csv_serializer, :filename, :collection
+    attr_reader :csv_serializer, :filename, :object, :response_ids
 
     def initialize(options = {})
       @csv_serializer = options[:csv_serializer]
       @filename       = options[:filename] || 'survey_csv_export'
-      @collection     = options[:collection]
+      @object         = options[:object]
+      @response_ids   = options[:response_ids] || []
     end
 
     def response
@@ -18,17 +19,11 @@ module Surveyable
     private
 
     def add_headers
-      csv_serializer.new(nil).csv_headers
+      csv_serializer.new(object: object, response_ids: response_ids).csv_headers
     end
 
     def add_body
-      if collection.is_a?(Array)
-        collection.inject('') do |csv, object|
-          csv << csv_serializer.new(object).to_csv
-        end
-      else
-        csv_serializer.new(collection).to_csv
-      end
+      csv_serializer.new(object: object, response_ids: response_ids).to_csv
     end
   end
 end
