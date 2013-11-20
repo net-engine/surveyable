@@ -35,7 +35,7 @@ module Surveyable
     end
 
     def text_answer?
-      %w(text_field text_area_field date_field).include?(field_type.to_s)
+      %w(text_field text_area_field date_field rank_field).include?(field_type.to_s)
     end
 
     private

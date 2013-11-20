@@ -63,7 +63,7 @@ module Surveyable
     end
 
     def filename
-      "survey_#{@survey.name}_#{Time.now.to_i}"
+      "survey_#{@survey.title}_#{Time.now.to_i}"
     end
   end
 end

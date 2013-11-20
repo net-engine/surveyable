@@ -46,7 +46,7 @@ module Surveyable
     end
 
     describe "#text_answer?" do
-      %w(text_field text_area_field date_field).each do |question_type|
+      %w(text_field text_area_field date_field rank_field).each do |question_type|
         let(:question) { create(:question, field_type: question_type) }
 
         it "returns true" do
