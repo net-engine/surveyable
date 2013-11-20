@@ -1,0 +1,32 @@
+module Surveyable
+  module CSV
+    class SurveySerializer
+      attr_reader :survey, :response_ids
+
+      def initialize(options = {})
+        @survey       = options[:object]
+        @response_ids = options[:response_ids]
+      end
+
+      def csv_headers
+        ["Subject", *survey.questions.pluck(:content)].to_csv
+      end
+
+      def to_csv
+        String.new.tap do |csv|
+          Surveyable::Response.where(id: response_ids).all.each do |response|
+            response_serializer = ResponseSerializer.new(response: response,
+                                                         question_ids: question_ids)
+            csv << response_serializer.to_csv
+          end
+        end
+      end
+
+      private
+
+      def question_ids
+        survey.questions.pluck(:id)
+      end
+    end
+  end
+end
