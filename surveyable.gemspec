@@ -21,5 +21,4 @@ Gem::Specification.new do |s|
   s.add_dependency "jquery-rails"
   s.add_dependency "jquery-ui-rails", "~> 4.0.3"
   s.add_dependency "acts_as_list"
-  s.add_dependency "active_model_serializers"
 end
