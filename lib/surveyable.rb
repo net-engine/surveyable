@@ -1,6 +1,8 @@
 require 'active_support/core_ext/kernel/singleton_class'
 require 'surveyable/engine'
 require 'acts_as_list'
+require 'active_model_serializers'
+require 'csv'
 
 module Surveyable
   mattr_accessor :application_controller_class, :from_email, :report_filter_class
