@@ -44,5 +44,15 @@ module Surveyable
         end
       end
     end
+
+    describe "#text_answer?" do
+      %w(text_field text_area_field date_field).each do |question_type|
+        let(:question) { create(:question, field_type: question_type) }
+
+        it "returns true" do
+          question.should be_text_answer
+        end
+      end
+    end
   end
 end

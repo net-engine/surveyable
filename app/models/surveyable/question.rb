@@ -3,13 +3,13 @@ module Surveyable
     acts_as_list scope: :survey_id
 
     FIELD_TYPES = [
-      ['Text Field', :text_field],
-      ['Text Area Field', :text_area_field],
-      ['Select Field', :select_field],
+      ['Text Field',         :text_field],
+      ['Text Area Field',    :text_area_field],
+      ['Select Field',       :select_field],
       ['Radio Button Field', :radio_button_field],
-      ['Check Box Field', :check_box_field],
-      ['Date Field', :date_field],
-      ['Rank Field', :rank_field]
+      ['Check Box Field',    :check_box_field],
+      ['Date Field',         :date_field],
+      ['Rank Field',         :rank_field]
     ]
 
     REPORTABLE_TYPES = %w{select_field radio_button_field check_box_field rank_field text_field text_area_field}
@@ -32,6 +32,10 @@ module Surveyable
       else
         answers.pluck(:score).max
       end
+    end
+
+    def text_answer?
+      %w(text_field text_area_field date_field).include?(field_type.to_s)
     end
 
     private
