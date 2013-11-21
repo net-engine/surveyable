@@ -12,6 +12,9 @@ module Surveyable
       ['Rank Field',         :rank_field]
     ]
 
+    TEXT_TYPES = %w(text_field text_area_field date_field)
+    GRAPH_TYPES = %w(select_field radio_button_field check_box_field rank_field)
+
     REPORTABLE_TYPES = %w{select_field radio_button_field check_box_field rank_field text_field text_area_field}
 
     has_many :answers, dependent: :destroy, order: :position
