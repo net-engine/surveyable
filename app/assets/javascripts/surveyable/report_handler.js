@@ -183,8 +183,7 @@ $(document).ready(function(){
         url: "/surveyable/questions/"+$(this).val()+"/reports",
         dataType: "json",
         success: function(results){
-          var chart = Surveyable.report(results, element);
-          Surveyable.charts.push(chart);
+          Surveyable.report(results, element);
         }
       });
     });
