@@ -5,6 +5,7 @@ Surveyable = (function(){
   function Surveyable() {}
 
   Surveyable.graphColors = d3.scale.category20c().range();
+  Surveyable.charts = [];
 
   Surveyable.checkBoxFieldGraph = function(in_data, element){
     var answer_values   = $.map(in_data.answers, function(answer, index){
@@ -39,6 +40,8 @@ Surveyable = (function(){
           .call(chart);
 
       nv.utils.windowResize(chart.update);
+
+      Surveyable.charts.push(chart);
 
       return chart;
     });
@@ -78,6 +81,8 @@ Surveyable = (function(){
 
       nv.utils.windowResize(chart.update);
 
+      Surveyable.charts.push(chart);
+
       return chart;
     });
   };
@@ -108,6 +113,8 @@ Surveyable = (function(){
 
       nv.utils.windowResize(chart.update);
 
+      Surveyable.charts.push(chart);
+
       return chart;
     });
   };
@@ -135,6 +142,8 @@ Surveyable = (function(){
 
       nv.utils.windowResize(chart.update);
 
+      Surveyable.charts.push(chart);
+
       return chart;
     });
 
@@ -143,7 +152,6 @@ Surveyable = (function(){
     $(data).each(function(index){
       $("#" +  element + " .legend").append($("<li style='color: " + Surveyable.graphColors[index] + "' class='series_" + index + "'>" + this.label + "<span class=\"value\">" + this.value + "</span></li>"));
     });
-
   };
 
   Surveyable.report = function(data, element) {
