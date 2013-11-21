@@ -14,7 +14,7 @@ class Surveyable::ApplicationController < Surveyable.application_controller_clas
   end
 
   def visible_respondable_args
-    filters = params.fetch(:filter, {})
+    filters = params.fetch(:filters, {})
     Surveyable.report_filter_class.filter(filters.merge(current_user: current_user))
   end
 end

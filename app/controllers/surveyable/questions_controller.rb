@@ -3,7 +3,7 @@ module Surveyable
     before_filter :fetch_question
 
     def reports
-      render json: Surveyable::Report.build(question: @question, current_user: current_user, filters: params[:filter])
+      render json: Surveyable::Report.build(question: @question, current_user: current_user, filters: params[:filters])
     end
 
     private
