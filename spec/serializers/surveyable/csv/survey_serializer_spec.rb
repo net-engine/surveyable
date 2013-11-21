@@ -38,17 +38,39 @@ describe Surveyable::CSV::SurveySerializer do
                                    question: question2,
                                    answer: answer) }
 
-  subject { described_class.new(object: survey, response_ids: [response1.id, response2.id]) }
+  let(:serializer1) { described_class.new(object: survey,
+                                         response_ids: [response1.id, response2.id],
+                                         question_ids: [question1.id, question2.id]) }
+
+  let(:serializer2) { described_class.new(object: survey,
+                                         response_ids: [response1.id, response2.id],
+                                         question_ids: [question1.id]) }
 
   describe "#csv_headers" do
-    it "returns headers" do
-      subject.csv_headers.should == "Subject,Banana,Apple\n"
+    context "with all question ids" do
+      it "returns headers" do
+        serializer1.csv_headers.should == "Subject,Banana,Apple\n"
+      end
+    end
+
+    context "with not all question ids" do
+      it "returns headers" do
+        serializer2.csv_headers.should == "Subject,Banana\n"
+      end
     end
   end
 
   describe "#to_csv" do
-    it "returns answers" do
-      subject.to_csv.should == "John,Free content mate,good\nMary,Yeah no,good\n"
+    context "with all question ids" do
+      it "returns answers" do
+        serializer1.to_csv.should == "John,Free content mate,good\nMary,Yeah no,good\n"
+      end
+    end
+
+    context "with not all question ids" do
+      it "returns answers" do
+        serializer2.to_csv.should == "John,Free content mate\nMary,Yeah no\n"
+      end
     end
   end
 end

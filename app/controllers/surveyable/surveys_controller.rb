@@ -13,7 +13,13 @@ module Surveyable
     def show
       respond_to do |format|
         format.html
-        format.csv { render csv: @survey, csv_serializer: Surveyable::CSV::SurveySerializer, response_ids: visible_response_ids, filename: filename }
+        format.csv do
+          render csv: @survey,
+                 csv_serializer: Surveyable::CSV::SurveySerializer,
+                 question_ids: question_ids,
+                 response_ids: visible_response_ids,
+                 filename: filename
+        end
       end
     end
 

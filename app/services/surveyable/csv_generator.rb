@@ -1,12 +1,13 @@
 module Surveyable
   class CsvGenerator
-    attr_reader :csv_serializer, :filename, :object, :response_ids
+    attr_reader :csv_serializer, :filename, :object, :response_ids, :question_ids
 
     def initialize(options = {})
       @csv_serializer = options[:csv_serializer]
       @filename       = options[:filename] || 'survey_csv_export'
       @object         = options[:object]
       @response_ids   = options[:response_ids] || []
+      @question_ids   = options[:question_ids] || []
     end
 
     def response
@@ -19,7 +20,7 @@ module Surveyable
     private
 
     def serializer
-      @serializer ||= csv_serializer.new(object: object, response_ids: response_ids)
+      @serializer ||= csv_serializer.new(object: object, response_ids: response_ids, question_ids: question_ids)
     end
   end
 end

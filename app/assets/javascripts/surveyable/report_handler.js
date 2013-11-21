@@ -192,11 +192,22 @@ Surveyable = (function(){
     }
   }
 
+  Surveyable.bindCsvLink = function(){
+    $(document).off('click', '#surveyReportCsvLink');
+    $(document).on('click', '#surveyReportCsvLink', function(e){
+      e.preventDefault();
+      var url = window.location + ".csv?" + $("#entityFilter").serialize();
+      window.location = url;
+      return false;
+    });
+  }
+
   return Surveyable;
 
 })();
 
 $(document).ready(function(){
   Surveyable.build();
+  Surveyable.bindCsvLink();
 });
 
