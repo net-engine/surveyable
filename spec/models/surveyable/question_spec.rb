@@ -23,48 +23,6 @@ module Surveyable
       end
     end
 
-    describe "#reports" do
-      let!(:question) { create(:question, field_type: :text_field) }
-
-      it "delegates to Report class" do
-        Surveyable::Report.should_receive(:build).with(question: question)
-
-        question.reports
-      end
-    end
-
-    describe "#reportable?" do
-      context "when field type is select_field" do
-        it "returns true" do
-          Surveyable::Question.new(field_type: 'select_field').should be_reportable
-        end
-      end
-
-      context "when field type is radio_button_field" do
-        it "returns true" do
-          Surveyable::Question.new(field_type: 'radio_button_field').should be_reportable
-        end
-      end
-
-      context "when field type is check_box_field" do
-        it "returns true" do
-          Surveyable::Question.new(field_type: 'check_box_field').should be_reportable
-        end
-      end
-
-      context "when field type is text field" do
-        it "returns false" do
-          Surveyable::Question.new(field_type: 'text_field').should be_reportable
-        end
-      end
-
-      context "when field type is text area field" do
-        it "returns false" do
-          Surveyable::Question.new(field_type: 'text_area_field').should be_reportable
-        end
-      end
-    end
-
     describe "#potential_score" do
       context "when question is checkbox_field" do
         let(:question) { create(:question, field_type: :check_box_field) }
@@ -83,6 +41,16 @@ module Surveyable
 
         it "returns max answers score" do
           question.potential_score.should == 2
+        end
+      end
+    end
+
+    describe "#text_answer?" do
+      %w(text_field text_area_field date_field rank_field).each do |question_type|
+        let(:question) { create(:question, field_type: question_type) }
+
+        it "returns true" do
+          question.should be_text_answer
         end
       end
     end

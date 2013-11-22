@@ -11,6 +11,16 @@ module Surveyable
     end
 
     def show
+      respond_to do |format|
+        format.html
+        format.csv do
+          render csv: @survey,
+                 csv_serializer: Surveyable::CSV::SurveySerializer,
+                 question_ids: question_ids,
+                 response_ids: visible_response_ids,
+                 filename: filename
+        end
+      end
     end
 
     def new
@@ -56,6 +66,10 @@ module Surveyable
 
     def fetch_survey
       @survey = Survey.find(params[:id])
+    end
+
+    def filename
+      "survey_#{@survey.title}_#{Time.now.to_i}"
     end
   end
 end
