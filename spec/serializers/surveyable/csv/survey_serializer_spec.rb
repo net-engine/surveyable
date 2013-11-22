@@ -4,10 +4,12 @@ describe Surveyable::CSV::SurveySerializer do
   let(:survey) { create(:survey) }
   let(:response1) { create(:response,
                            survey: survey,
-                           respondable: create(:person, name: "John")) }
+                           respondable: create(:person, name: "John"),
+                           completed_at: Time.now) }
   let(:response2) { create(:response,
                            survey: survey,
-                           respondable: create(:person, name: "Mary")) }
+                           respondable: create(:person, name: "Mary"),
+                           completed_at: Time.now) }
   let(:question1) { create(:question,
                            survey: survey,
                            content: "Banana",
