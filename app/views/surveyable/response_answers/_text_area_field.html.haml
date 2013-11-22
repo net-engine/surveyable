@@ -1,0 +1,16 @@
+%table.surveyable-report-table
+  %thead
+    %tr.surveyable-report-table-header-row
+      %th.surveyable-report-table-respondant-header Respondent
+      %th.surveyable-report-table-subject-header Subject
+      %th.surveyable-report-table-content-header Content
+
+  %tbody
+    - @response_answers.each do |answer|
+      %tr.surveyable-report-table-data-row
+        %td.surveyable-report-table-respondant-data
+          = link_to answer.response.respondent, answer.response.respondent
+        %td.surveyable-report-table-subject-data
+          = link_to answer.response.respondable, answer.response.respondable
+        %td.surveyable-report-table-content-data= answer.free_content
+

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     resources :responses
     resources :questions, only: [] do
       get 'reports', on: :member
+      resources :response_answers, only: :index
     end
   end
 

@@ -9,7 +9,7 @@ group :development, :test do
   gem 'haml-rails'
   gem 'coffee-rails'
   gem 'compass-rails'
-  gem 'debugger'
+  gem 'pry-meta'
   gem 'sqlite3'
   gem 'rspec-rails'
   gem 'factory_girl'

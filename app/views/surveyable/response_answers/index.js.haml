@@ -1,0 +1,5 @@
+- if @response_answers.any?
+  $("#question_#{@question.id}").append(('#{escape_javascript render("#{@question.field_type}", response_answers: @response_answers)}'));
+- else
+  $("#question_#{@question.id}").append("<p>No answers</p>");
+

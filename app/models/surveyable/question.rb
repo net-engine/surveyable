@@ -25,14 +25,6 @@ module Surveyable
 
     accepts_nested_attributes_for :answers, allow_destroy: true, reject_if: lambda { |a| a[:content].blank? }
 
-    def reports
-      Surveyable::Report.build(question: self)
-    end
-
-    def reportable?
-      REPORTABLE_TYPES.include?(field_type)
-    end
-
     def potential_score
       case self.field_type.to_s
       when 'check_box_field'
