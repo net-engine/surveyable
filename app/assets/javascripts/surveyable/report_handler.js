@@ -7,6 +7,18 @@ Surveyable = (function(){
   Surveyable.graphColors = d3.scale.category20c().range();
   Surveyable.charts = [];
 
+  var manageChartArray = function (newChart) {
+    var charts = Surveyable.charts;
+
+    for (var i = 0; i < charts.length - 1; i++) {
+      if (charts[i].container.id === newChart.container.id) {
+        charts.splice(i, 1);
+      }
+    }
+
+    charts.push(newChart);
+  };
+
   Surveyable.checkBoxFieldGraph = function(in_data, element){
     var answer_values   = $.map(in_data.answers, function(answer, index){
       return { label: answer.answer_text, value: answer.answer_occurrence }
@@ -41,7 +53,7 @@ Surveyable = (function(){
 
       nv.utils.windowResize(chart.update);
 
-      Surveyable.charts.push(chart);
+      manageChartArray(chart);
 
       return chart;
     });
@@ -81,7 +93,7 @@ Surveyable = (function(){
 
       nv.utils.windowResize(chart.update);
 
-      Surveyable.charts.push(chart);
+      manageChartArray(chart);
 
       return chart;
     });
@@ -113,7 +125,7 @@ Surveyable = (function(){
 
       nv.utils.windowResize(chart.update);
 
-      Surveyable.charts.push(chart);
+      manageChartArray(chart);
 
       return chart;
     });
@@ -142,7 +154,7 @@ Surveyable = (function(){
 
       nv.utils.windowResize(chart.update);
 
-      Surveyable.charts.push(chart);
+      manageChartArray(chart);
 
       return chart;
     });
@@ -170,19 +182,45 @@ Surveyable = (function(){
     }
   };
 
+  Surveyable.spinOpts = {
+    lines: 13,
+    length: 10,
+    width: 5,
+    radius: 25,
+    corners: 1,
+    rotate: 0,
+    direction: 1,
+    color: '#000',
+    speed: 1,
+    trail: 60,
+    shadow: false,
+    hwaccel: true,
+    className: 'spinner',
+    zIndex: 2e9,
+    top: 'auto',
+    left: 'auto'
+  };
+
   Surveyable.build = function(){
     var $graphQuestions = $(".graph_report");
     var $textQuestions = $(".text_report");
 
     if ($graphQuestions.length > 0){
       $graphQuestions.each(function(index){
-        var element = $(this).closest('.question').find('.graph').attr('id');
+        var $question = $(this).closest(".question");
+        var element = $question.find('.graph').attr('id');
+        
+        var spinContainer = $question.find(".spin-container")[0];
+        var spinner = new Spinner(Surveyable.spinOpts);
+        
+        spinner.spin(spinContainer);
 
         $.ajax({
           url: "/surveyable/questions/" + $(this).val() + "/reports",
           dataType: "json",
           data: $("#entityFilter").serialize(),
           success: function(results){
+            spinner.spin(false);
             Surveyable.report(results, element);
           }
         });
@@ -191,10 +229,20 @@ Surveyable = (function(){
 
     if ($textQuestions.length > 0){
       $textQuestions.each(function(index){
-        $(this).closest(".question").find(".response_answers").empty();
+        var $question = $(this).closest(".question");
+
+        var spinContainer = $question.find(".spin-container")[0];
+        var spinner = new Spinner(Surveyable.spinOpts);
+
+        $question.find(".response_answers").empty();
+        spinner.spin(spinContainer);
+
         $.ajax({
           url: "/surveyable/questions/" + $(this).val() + "/response_answers",
-          data: $("#entityFilter").serialize()
+          data: $("#entityFilter").serialize(),
+          success: function () {
+            spinner.spin(false);
+          }
         });
       });
     }

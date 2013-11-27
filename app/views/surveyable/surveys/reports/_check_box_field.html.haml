@@ -1,4 +1,5 @@
 = hidden_field_tag "graph_report", question.id, id: nil, class: "graph_report"
 .graph{ id: "question_#{ question.id }" }
-  %svg
+  %svg{ id: "svg_#{ question.id }" }
+  .spin-container
 

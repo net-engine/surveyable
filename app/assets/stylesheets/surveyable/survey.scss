@@ -141,3 +141,21 @@ $radius: 3px;
 .nv-line .nv-group {
   fill: none !important;
 }
+
+#surveyableQuestionList {
+  .text_field, 
+  .graph {
+    min-height: 8em;
+    position: relative;
+
+    .spin-container {
+      position: absolute;
+      @include opacity(0.5);
+
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+  }
+}
