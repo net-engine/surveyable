@@ -15,5 +15,6 @@
 //= require morris
 //= require d3
 //= require nv.d3
+//= require spin
 //= require ./survey
 //= require ./report_handler
