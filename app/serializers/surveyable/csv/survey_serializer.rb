@@ -10,7 +10,7 @@ module Surveyable
       end
 
       def csv_headers
-        ["Subject", *survey.questions.where(id: question_ids).pluck(:content)].to_csv
+        ["Subject", "Completed Date", *survey.questions.where(id: question_ids).pluck(:content)].to_csv
       end
 
       def to_csv

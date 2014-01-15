@@ -11,6 +11,7 @@ module Surveyable
       def to_csv
         csv = []
         csv << response.respondable.to_s
+        csv << response.completed_at.strftime("%d/%m/%Y %H:%M%P")
 
         response_answers_grouped.each do |question_id, response_answers|
           csv << response_answers.map(&:to_s).join(";")

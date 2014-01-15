@@ -2,7 +2,9 @@ require 'spec_helper'
 
 describe Surveyable::CSV::ResponseSerializer do
   let(:survey) { create(:survey) }
-  let(:response) { create(:response, survey: survey) }
+  let(:response) { create(:response,
+                          survey: survey,
+                          completed_at: Time.at(1389658686)) }
   let(:question1) { create(:question,
                            survey: survey,
                            content: "Banana",
@@ -35,7 +37,7 @@ describe Surveyable::CSV::ResponseSerializer do
 
   describe "#to_csv" do
     it "returns answers" do
-      subject.to_csv.should == "Testing,Free content mate,good;great\n"
+      subject.to_csv.should == "Testing,14/01/2014 00:18am,Free content mate,good;great\n"
     end
   end
 end
